@@ -33,7 +33,6 @@
 
         header p { color: #a0aec0; font-size: 1rem; }
 
-        /* ── Tab switcher ── */
         .tab-bar {
             display: flex;
             background: rgba(255,255,255,0.05);
@@ -49,7 +48,7 @@
             border: none;
             background: transparent;
             color: #718096;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             border-radius: 10px;
             cursor: pointer;
@@ -62,7 +61,6 @@
             color: white;
         }
 
-        /* ── Cards ── */
         .card {
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
@@ -76,7 +74,86 @@
         .tab-panel { display: none; }
         .tab-panel.active { display: block; }
 
-        /* ── URL input ── */
+        /* Search Bar */
+        .search-wrap {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .search-wrap input {
+            width: 100%;
+            padding: 14px 16px 14px 44px;
+            border-radius: 12px;
+            border: 2px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+            -webkit-appearance: none;
+        }
+
+        .search-wrap input:focus { border-color: #e94560; }
+        .search-wrap input::placeholder { color: #718096; }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+        }
+
+        /* Search Results Dropdown */
+        .search-dropdown {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            background: #1a2035;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            z-index: 100;
+            max-height: 320px;
+            overflow-y: auto;
+            display: none;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+
+        .search-dropdown.open { display: block; }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: background 0.15s;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .dropdown-item:last-child { border-bottom: none; }
+
+        .dropdown-item:active { background: rgba(233,69,96,0.15); }
+
+        .dropdown-emoji { font-size: 1.4rem; min-width: 32px; text-align: center; }
+
+        .dropdown-info { flex: 1; }
+
+        .dropdown-name { font-size: 0.95rem; font-weight: 600; color: #fff; }
+
+        .dropdown-category { font-size: 0.75rem; color: #718096; margin-top: 2px; }
+
+        .dropdown-protein { font-size: 0.85rem; font-weight: 700; color: #e94560; }
+
+        .no-results {
+            padding: 20px;
+            text-align: center;
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        /* URL Input */
         .input-group {
             display: flex;
             gap: 10px;
@@ -110,15 +187,15 @@
             font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
             white-space: nowrap;
             -webkit-tap-highlight-color: transparent;
+            transition: transform 0.2s;
         }
 
         .btn-primary:active { transform: scale(0.97); }
-        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-primary:disabled { opacity: 0.5; }
 
-        /* ── Filters ── */
+        /* Filters */
         .filters {
             display: flex;
             gap: 8px;
@@ -147,16 +224,23 @@
             color: white;
         }
 
-        /* ── Example chips ── */
-        .examples p { color: #718096; font-size: 0.82rem; margin-bottom: 10px; }
+        /* Category Pills */
+        .category-section { margin-bottom: 16px; }
 
-        .example-links {
+        .category-section p { color: #a0aec0; font-size: 0.82rem; margin-bottom: 10px; }
+
+        .category-scroll {
             display: flex;
             gap: 8px;
-            flex-wrap: wrap;
+            overflow-x: auto;
+            padding-bottom: 6px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
         }
 
-        .example-chip {
+        .category-scroll::-webkit-scrollbar { display: none; }
+
+        .cat-pill {
             padding: 7px 14px;
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
@@ -164,17 +248,66 @@
             font-size: 0.8rem;
             color: #a0aec0;
             cursor: pointer;
+            white-space: nowrap;
             transition: all 0.2s;
             -webkit-tap-highlight-color: transparent;
         }
 
-        .example-chip:active {
+        .cat-pill.active {
             background: rgba(233,69,96,0.2);
             border-color: #e94560;
             color: #e94560;
         }
 
-        /* ── Photo Upload ── */
+        /* Restaurant Grid */
+        .restaurant-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            max-height: 340px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-right: 4px;
+        }
+
+        .restaurant-grid::-webkit-scrollbar { width: 4px; }
+        .restaurant-grid::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 4px; }
+        .restaurant-grid::-webkit-scrollbar-thumb { background: rgba(233,69,96,0.4); border-radius: 4px; }
+
+        .rest-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .rest-card:active {
+            background: rgba(233,69,96,0.15);
+            border-color: rgba(233,69,96,0.4);
+        }
+
+        .rest-emoji { font-size: 1.5rem; }
+
+        .rest-info { flex: 1; min-width: 0; }
+
+        .rest-name {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .rest-meta { font-size: 0.7rem; color: #718096; margin-top: 2px; }
+
+        /* Upload Zone */
         .upload-zone {
             border: 2px dashed rgba(255,255,255,0.2);
             border-radius: 16px;
@@ -186,11 +319,6 @@
             margin-bottom: 18px;
         }
 
-        .upload-zone.dragover {
-            border-color: #e94560;
-            background: rgba(233,69,96,0.08);
-        }
-
         .upload-zone input[type="file"] {
             position: absolute;
             inset: 0;
@@ -198,27 +326,15 @@
             cursor: pointer;
             width: 100%;
             height: 100%;
-            font-size: 16px; /* prevents iOS zoom */
+            font-size: 16px;
         }
 
         .upload-icon { font-size: 3rem; margin-bottom: 12px; }
-
         .upload-zone h3 { font-size: 1.1rem; margin-bottom: 6px; }
-
         .upload-zone p { color: #718096; font-size: 0.85rem; }
+        .upload-zone .ios-note { margin-top: 10px; font-size: 0.78rem; color: #4fd1c5; }
 
-        .upload-zone .ios-note {
-            margin-top: 10px;
-            font-size: 0.78rem;
-            color: #4fd1c5;
-        }
-
-        /* Image preview */
-        .preview-wrap {
-            display: none;
-            margin-bottom: 18px;
-            position: relative;
-        }
+        .preview-wrap { display: none; margin-bottom: 18px; position: relative; }
 
         .preview-wrap img {
             width: 100%;
@@ -230,14 +346,12 @@
 
         .preview-clear {
             position: absolute;
-            top: 8px;
-            right: 8px;
+            top: 8px; right: 8px;
             background: rgba(0,0,0,0.6);
             border: none;
             color: white;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 30px; height: 30px;
             font-size: 1rem;
             cursor: pointer;
             display: flex;
@@ -262,16 +376,11 @@
         .analyze-photo-btn:active { transform: scale(0.98); }
         .analyze-photo-btn:disabled { opacity: 0.5; }
 
-        /* ── Loading ── */
-        .loading {
-            text-align: center;
-            padding: 40px 20px;
-            display: none;
-        }
+        /* Loading */
+        .loading { text-align: center; padding: 40px 20px; display: none; }
 
         .spinner {
-            width: 48px;
-            height: 48px;
+            width: 48px; height: 48px;
             border: 4px solid rgba(255,255,255,0.1);
             border-top-color: #e94560;
             border-radius: 50%;
@@ -283,7 +392,7 @@
 
         .loading p { color: #a0aec0; font-size: 0.95rem; }
 
-        /* ── Error ── */
+        /* Error */
         .error-box {
             background: rgba(233,69,96,0.1);
             border: 1px solid rgba(233,69,96,0.3);
@@ -295,7 +404,7 @@
             margin-bottom: 20px;
         }
 
-        /* ── Results ── */
+        /* Results */
         .results { display: none; }
 
         .results-header {
@@ -308,6 +417,18 @@
 
         .results-header h2 { font-size: 1.3rem; color: #f5a623; }
         .restaurant-name { color: #a0aec0; font-size: 0.85rem; margin-top: 2px; }
+
+        .back-btn {
+            padding: 8px 14px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 10px;
+            color: #a0aec0;
+            font-size: 0.82rem;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            white-space: nowrap;
+        }
 
         .summary-bar {
             display: grid;
@@ -323,20 +444,10 @@
             text-align: center;
         }
 
-        .summary-stat .value {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #e94560;
-        }
+        .summary-stat .value { font-size: 1.5rem; font-weight: 800; color: #e94560; }
+        .summary-stat .label { font-size: 0.68rem; color: #718096; text-transform: uppercase; letter-spacing: 0.4px; }
 
-        .summary-stat .label {
-            font-size: 0.68rem;
-            color: #718096;
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
-        }
-
-        /* ── Protein Cards ── */
+        /* Protein Cards */
         .protein-card {
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.08);
@@ -346,69 +457,26 @@
             display: flex;
             align-items: center;
             gap: 14px;
-            transition: border-color 0.2s;
         }
 
-        .protein-card:active { border-color: rgba(233,69,96,0.4); }
-
-        .rank {
-            font-size: 1.6rem;
-            font-weight: 900;
-            min-width: 42px;
-            text-align: center;
-        }
-
+        .rank { font-size: 1.6rem; font-weight: 900; min-width: 42px; text-align: center; }
         .rank.gold   { color: #f5a623; }
         .rank.silver { color: #a0aec0; }
         .rank.bronze { color: #cd7f32; }
         .rank.other  { color: #4a5568; }
 
         .item-info { flex: 1; min-width: 0; }
-
-        .item-name {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 3px;
-            line-height: 1.3;
-        }
-
-        .item-desc {
-            color: #a0aec0;
-            font-size: 0.78rem;
-            margin-bottom: 7px;
-            line-height: 1.4;
-        }
-
+        .item-name { font-size: 1rem; font-weight: 700; margin-bottom: 3px; line-height: 1.3; }
+        .item-desc { color: #a0aec0; font-size: 0.78rem; margin-bottom: 7px; line-height: 1.4; }
         .item-tags { display: flex; gap: 5px; flex-wrap: wrap; }
 
-        .tag {
-            padding: 2px 9px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
+        .tag { padding: 2px 9px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; }
         .tag-category { background: rgba(79,209,197,0.15); color: #4fd1c5; }
         .tag-diet     { background: rgba(104,211,145,0.15); color: #68d391; }
 
-        .protein-badge {
-            text-align: center;
-            min-width: 80px;
-        }
-
-        .protein-amount {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: #e94560;
-            line-height: 1;
-        }
-
-        .protein-label {
-            font-size: 0.65rem;
-            color: #a0aec0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        .protein-badge { text-align: center; min-width: 80px; }
+        .protein-amount { font-size: 1.8rem; font-weight: 900; color: #e94560; line-height: 1; }
+        .protein-label { font-size: 0.65rem; color: #a0aec0; text-transform: uppercase; letter-spacing: 1px; }
 
         .protein-bar-wrap {
             margin: 5px auto 4px;
@@ -418,16 +486,11 @@
             width: 70px;
         }
 
-        .protein-bar {
-            height: 4px;
-            border-radius: 4px;
-            background: linear-gradient(90deg, #e94560, #f5a623);
-        }
+        .protein-bar { height: 4px; border-radius: 4px; background: linear-gradient(90deg, #e94560, #f5a623); }
 
         .calories-info { font-size: 0.7rem; color: #718096; }
         .price-info    { font-size: 0.8rem; color: #68d391; font-weight: 600; }
 
-        /* ── Tip box ── */
         .tip-box {
             background: rgba(245,166,35,0.1);
             border: 1px solid rgba(245,166,35,0.3);
@@ -439,7 +502,6 @@
             line-height: 1.5;
         }
 
-        /* ── Photo results specific ── */
         .photo-disclaimer {
             background: rgba(79,209,197,0.08);
             border: 1px solid rgba(79,209,197,0.25);
@@ -451,64 +513,85 @@
             line-height: 1.5;
         }
 
-        /* ── Safe area for iPhone notch ── */
         .bottom-pad { height: env(safe-area-inset-bottom, 20px); }
 
         @media (max-width: 480px) {
             header h1 { font-size: 1.7rem; }
             .summary-bar { grid-template-columns: repeat(2, 1fr); }
-            .protein-card { gap: 10px; }
-            .protein-amount { font-size: 1.5rem; }
+            .restaurant-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
 <body>
 <div class="container">
-
     <header>
         <h1>💪 Protein Finder</h1>
         <p>Find the highest protein options at any restaurant</p>
     </header>
 
-    <!-- Tab Bar -->
     <div class="tab-bar">
-        <button class="tab-btn active" onclick="switchTab('url', this)">🔗 Menu URL</button>
-        <button class="tab-btn" onclick="switchTab('photo', this)">📸 Menu Photo</button>
+        <button class="tab-btn active" onclick="switchTab('search', this)">🔍 Search</button>
+        <button class="tab-btn" onclick="switchTab('url', this)">🔗 URL</button>
+        <button class="tab-btn" onclick="switchTab('photo', this)">📸 Photo</button>
     </div>
 
-    <!-- ══ TAB 1: URL ══ -->
-    <div class="tab-panel active" id="tab-url">
+    <!-- ══ TAB 1: SEARCH ══ -->
+    <div class="tab-panel active" id="tab-search">
         <div class="card">
-            <div class="input-group">
-                <input type="url" id="menuUrl" placeholder="Paste restaurant menu URL..." autocomplete="off" autocorrect="off" spellcheck="false" />
-                <button class="btn-primary" onclick="analyzeMenu()">🔍 Go</button>
+            <div class="search-wrap">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="Search any restaurant... e.g. Olive Garden" autocomplete="off" autocorrect="off" spellcheck="false" oninput="handleSearch(this.value)" onfocus="handleSearch(this.value)" />
+                <div class="search-dropdown" id="searchDropdown"></div>
             </div>
 
             <div class="filters">
                 <label>Filter results:</label>
                 <button class="filter-btn active" onclick="setFilter('all',this)">All Items</button>
-                <button class="filter-btn" onclick="setFilter('high',this)">🔥 30g+ Protein</button>
+                <button class="filter-btn" onclick="setFilter('high',this)">🔥 30g+</button>
                 <button class="filter-btn" onclick="setFilter('lean',this)">🥗 Lean</button>
-                <button class="filter-btn" onclick="setFilter('value',this)">💰 Best Value</button>
+                <button class="filter-btn" onclick="setFilter('value',this)">💰 Value</button>
             </div>
 
-            <div class="examples">
-                <p>Tap a restaurant to load instantly:</p>
-                <div class="example-links">
-                    <span class="example-chip" onclick="loadExample('chipotle')">🌯 Chipotle</span>
-                    <span class="example-chip" onclick="loadExample('mcdonalds')">🍔 McDonald's</span>
-                    <span class="example-chip" onclick="loadExample('subway')">🥖 Subway</span>
-                    <span class="example-chip" onclick="loadExample('chick-fil-a')">🍗 Chick-fil-A</span>
-                    <span class="example-chip" onclick="loadExample('panera')">🥣 Panera</span>
-                    <span class="example-chip" onclick="loadExample('sweetgreen')">🥬 Sweetgreen</span>
-                    <span class="example-chip" onclick="loadExample('tacobell')">🌮 Taco Bell</span>
-                    <span class="example-chip" onclick="loadExample('jackinthebox')">🍟 Jack in the Box</span>
+            <div class="category-section">
+                <p>Browse by category:</p>
+                <div class="category-scroll">
+                    <span class="cat-pill active" onclick="filterCategory('all', this)">🍽️ All</span>
+                    <span class="cat-pill" onclick="filterCategory('Fast Food', this)">🍔 Fast Food</span>
+                    <span class="cat-pill" onclick="filterCategory('Mexican', this)">🌮 Mexican</span>
+                    <span class="cat-pill" onclick="filterCategory('Chicken', this)">🍗 Chicken</span>
+                    <span class="cat-pill" onclick="filterCategory('Healthy', this)">🥗 Healthy</span>
+                    <span class="cat-pill" onclick="filterCategory('Sandwiches', this)">🥖 Sandwiches</span>
+                    <span class="cat-pill" onclick="filterCategory('Casual Dining', this)">🍴 Casual Dining</span>
+                    <span class="cat-pill" onclick="filterCategory('Pizza', this)">🍕 Pizza</span>
+                    <span class="cat-pill" onclick="filterCategory('Asian', this)">🍜 Asian</span>
+                    <span class="cat-pill" onclick="filterCategory('Breakfast', this)">🍳 Breakfast</span>
+                    <span class="cat-pill" onclick="filterCategory('Seafood', this)">🦐 Seafood</span>
+                    <span class="cat-pill" onclick="filterCategory('Steakhouse', this)">🥩 Steakhouse</span>
                 </div>
+            </div>
+
+            <div class="restaurant-grid" id="restaurantGrid"></div>
+        </div>
+    </div>
+
+    <!-- ══ TAB 2: URL ══ -->
+    <div class="tab-panel" id="tab-url">
+        <div class="card">
+            <div class="input-group">
+                <input type="url" id="menuUrl" placeholder="Paste restaurant menu URL..." autocomplete="off" autocorrect="off" spellcheck="false" />
+                <button class="btn-primary" onclick="analyzeUrl()">🔍 Go</button>
+            </div>
+            <div class="filters">
+                <label>Filter results:</label>
+                <button class="filter-btn active" onclick="setFilter('all',this)">All Items</button>
+                <button class="filter-btn" onclick="setFilter('high',this)">🔥 30g+</button>
+                <button class="filter-btn" onclick="setFilter('lean',this)">🥗 Lean</button>
+                <button class="filter-btn" onclick="setFilter('value',this)">💰 Value</button>
             </div>
         </div>
     </div>
 
-    <!-- ══ TAB 2: PHOTO ══ -->
+    <!-- ══ TAB 3: PHOTO ══ -->
     <div class="tab-panel" id="tab-photo">
         <div class="card">
             <div class="upload-zone" id="uploadZone">
@@ -518,12 +601,10 @@
                 <p>Take a photo or choose from your camera roll</p>
                 <p class="ios-note">📱 On iPhone: tap to open Camera or Photos</p>
             </div>
-
             <div class="preview-wrap" id="previewWrap">
                 <img id="previewImg" src="" alt="Menu preview" />
                 <button class="preview-clear" onclick="clearPhoto()">✕</button>
             </div>
-
             <button class="analyze-photo-btn" id="analyzePhotoBtn" onclick="analyzePhoto()" disabled>
                 🔍 Analyze Menu Photo
             </button>
@@ -543,16 +624,15 @@
 
     <div class="results" id="results">
         <div class="photo-disclaimer" id="photoDisclaimer" style="display:none">
-            ℹ️ <strong>AI Estimate:</strong> Protein values are estimated based on typical recipes for these menu items. Always check with the restaurant for exact nutrition info.
+            ℹ️ <strong>AI Estimate:</strong> Protein values are estimated based on typical recipes. Always check with the restaurant for exact nutrition info.
         </div>
-
         <div class="results-header">
             <div>
                 <h2>🏆 Top Protein Items</h2>
                 <div class="restaurant-name" id="restaurantName"></div>
             </div>
+            <button class="back-btn" onclick="goBack()">← Back</button>
         </div>
-
         <div class="summary-bar" id="summaryBar"></div>
         <div id="itemsList"></div>
         <div class="tip-box" id="tipBox"></div>
@@ -563,11 +643,12 @@
 
 <script>
 // ═══════════════════════════════════════════════════════
-//  RESTAURANT DATABASE
+//  FULL RESTAURANT DATABASE — 35 Restaurants
 // ═══════════════════════════════════════════════════════
 const restaurantData = {
     chipotle: {
-        name: "Chipotle Mexican Grill",
+        name: "Chipotle Mexican Grill", emoji: "🌯", category: "Mexican",
+        topProtein: 56,
         tip: "💡 Double protein adds ~20g for only $2 extra. Chicken Bowl + double chicken + black beans = ~65g protein!",
         items: [
             { name:"Chicken Burrito Bowl",      protein:56, calories:665, price:"$9.25",  category:"Bowl",       diet:"High Protein", desc:"Chicken, rice, black beans, fajita veggies, salsa" },
@@ -576,12 +657,13 @@ const restaurantData = {
             { name:"Chicken Salad",              protein:44, calories:425, price:"$9.25",  category:"Salad",      diet:"Lean",         desc:"Grilled chicken, romaine, fajita veggies, salsa" },
             { name:"Carnitas Bowl",              protein:42, calories:610, price:"$10.25", category:"Bowl",       diet:"High Protein", desc:"Pulled pork, rice, beans, toppings" },
             { name:"Chicken Quesadilla",         protein:38, calories:780, price:"$8.50",  category:"Quesadilla", diet:"High Protein", desc:"Grilled chicken, cheese, flour tortilla" },
-            { name:"Sofritas Bowl (Vegan)",      protein:22, calories:580, price:"$9.25",  category:"Bowl",       diet:"Vegan",        desc:"Spicy tofu, rice, beans, guacamole" },
+            { name:"Sofritas Bowl",              protein:22, calories:580, price:"$9.25",  category:"Bowl",       diet:"Vegan",        desc:"Spicy tofu, rice, beans, guacamole" },
         ]
     },
     mcdonalds: {
-        name: "McDonald's",
-        tip: "💡 Double Quarter Pounder gives the best protein-to-calorie ratio. Skip fries, add a side salad to stay lean!",
+        name: "McDonald's", emoji: "🍔", category: "Fast Food",
+        topProtein: 48,
+        tip: "💡 Double Quarter Pounder gives the best protein-to-calorie ratio. Skip fries, add a side salad!",
         items: [
             { name:"Double Quarter Pounder w/ Cheese", protein:48, calories:740, price:"$7.29", category:"Burger",    diet:"High Protein", desc:"Two beef patties, cheese, onions, pickles, mustard, ketchup" },
             { name:"Artisan Grilled Chicken Sandwich",  protein:37, calories:380, price:"$5.79", category:"Sandwich",  diet:"Lean",         desc:"Grilled chicken breast, lettuce, tomato, artisan roll" },
@@ -593,8 +675,9 @@ const restaurantData = {
         ]
     },
     subway: {
-        name: "Subway",
-        tip: "💡 Double meat on a footlong gives 50g+ protein. Choose whole wheat bread and load up on veggies — zero extra calories!",
+        name: "Subway", emoji: "🥖", category: "Sandwiches",
+        topProtein: 52,
+        tip: "💡 Double meat on a footlong gives 50g+ protein. Load up on veggies — zero extra calories!",
         items: [
             { name:"Footlong Rotisserie Chicken", protein:52, calories:620, price:"$10.99", category:"Sub",       diet:"High Protein", desc:"Rotisserie-style chicken, your choice of veggies & sauce" },
             { name:"Footlong Steak & Cheese",     protein:48, calories:680, price:"$11.49", category:"Sub",       diet:"High Protein", desc:"Steak, American cheese, veggies on Italian bread" },
@@ -605,9 +688,10 @@ const restaurantData = {
             { name:"6-inch Egg & Cheese",         protein:18, calories:430, price:"$5.49",  category:"Breakfast", diet:"Lean",         desc:"Scrambled eggs, cheese on flatbread" },
         ]
     },
-    "chick-fil-a": {
-        name: "Chick-fil-A",
-        tip: "💡 Grilled Nuggets (12-pc) = only 200 calories for 38g protein — the best protein-to-calorie ratio on the menu!",
+    chickfila: {
+        name: "Chick-fil-A", emoji: "🍗", category: "Chicken",
+        topProtein: 43,
+        tip: "💡 Grilled Nuggets (12-pc) = only 200 calories for 38g protein — best protein-to-calorie ratio on the menu!",
         items: [
             { name:"Grilled Chicken Club Sandwich", protein:43, calories:430, price:"$7.29",  category:"Sandwich", diet:"Lean",         desc:"Grilled chicken, bacon, colby-jack, lettuce, tomato" },
             { name:"Cobb Salad w/ Grilled Chicken", protein:42, calories:510, price:"$11.09", category:"Salad",    diet:"Lean",         desc:"Grilled chicken, bacon, egg, cheese, avocado lime ranch" },
@@ -615,29 +699,31 @@ const restaurantData = {
             { name:"Grilled Nuggets (12-pc)",       protein:38, calories:200, price:"$7.65",  category:"Nuggets",  diet:"Lean",         desc:"12 grilled chicken nuggets — incredible protein-to-calorie ratio!" },
             { name:"Chick-fil-A Deluxe Sandwich",   protein:36, calories:500, price:"$5.85",  category:"Sandwich", diet:"High Protein", desc:"Crispy chicken, cheese, lettuce, tomato on brioche" },
             { name:"Grilled Market Salad",          protein:28, calories:330, price:"$10.29", category:"Salad",    diet:"Lean",         desc:"Grilled chicken, fresh fruit, blue cheese, nuts" },
-            { name:"Egg White Grill (Breakfast)",   protein:25, calories:290, price:"$5.05",  category:"Breakfast",diet:"Lean",         desc:"Grilled chicken, egg whites, American cheese on English muffin" },
+            { name:"Egg White Grill",               protein:25, calories:290, price:"$5.05",  category:"Breakfast",diet:"Lean",         desc:"Grilled chicken, egg whites, American cheese on English muffin" },
         ]
     },
     panera: {
-        name: "Panera Bread",
-        tip: "💡 You Pick Two: pair the Green Goddess Cobb Salad with Turkey Chili for ~62g protein in one meal!",
+        name: "Panera Bread", emoji: "🥣", category: "Healthy",
+        topProtein: 46,
+        tip: "💡 You Pick Two: Green Goddess Cobb Salad + Turkey Chili = ~62g protein in one meal!",
         items: [
             { name:"Chipotle Chicken Avocado Melt",  protein:46, calories:690, price:"$12.99", category:"Sandwich", diet:"High Protein", desc:"Smoked pulled chicken, avocado, chipotle sauce, smoked gouda" },
             { name:"Chicken Bacon Ranch Sandwich",   protein:42, calories:720, price:"$12.49", category:"Sandwich", diet:"High Protein", desc:"Chicken, bacon, ranch, tomato on ciabatta" },
             { name:"Green Goddess Cobb Salad",       protein:40, calories:590, price:"$12.99", category:"Salad",    diet:"Lean",         desc:"Chicken, bacon, egg, avocado, green goddess dressing" },
             { name:"Steak & Arugula Sandwich",       protein:38, calories:650, price:"$13.49", category:"Sandwich", diet:"High Protein", desc:"Steak, arugula, tomato, herb mayo on ciabatta" },
             { name:"Fuji Apple Chicken Salad",       protein:32, calories:570, price:"$12.99", category:"Salad",    diet:"Lean",         desc:"Chicken, apple chips, gorgonzola, pecans, white balsamic" },
-            { name:"Turkey Chili",                   protein:22, calories:280, price:"$7.49",  category:"Soup",     diet:"Lean",         desc:"Turkey, beans, tomato, peppers — great protein-per-calorie" },
+            { name:"Turkey Chili",                   protein:22, calories:280, price:"$7.49",  category:"Soup",     diet:"Lean",         desc:"Turkey, beans, tomato, peppers" },
             { name:"Scrambled Egg & Cheese Brioche", protein:20, calories:490, price:"$7.99",  category:"Breakfast",diet:"Classic",      desc:"Scrambled eggs, cheese on brioche bun" },
         ]
     },
     sweetgreen: {
-        name: "Sweetgreen",
-        tip: "💡 Build your own bowl: warm quinoa + double chicken + hemp seeds = 50g+ protein. Skip creamy dressings to stay lean!",
+        name: "Sweetgreen", emoji: "🥬", category: "Healthy",
+        topProtein: 44,
+        tip: "💡 Build your own: warm quinoa + double chicken + hemp seeds = 50g+ protein!",
         items: [
             { name:"Chicken + Brussels Bowl",    protein:44, calories:640, price:"$15.25", category:"Bowl",   diet:"Lean",         desc:"Roasted chicken, shaved brussels, sweet potato, apple, tahini" },
-            { name:"Harvest Bowl",               protein:40, calories:705, price:"$15.75", category:"Bowl",   diet:"High Protein", desc:"Chicken, sweet potato, apples, goat cheese, roasted almonds, balsamic" },
             { name:"Steak + Arugula Bowl",       protein:42, calories:620, price:"$16.25", category:"Bowl",   diet:"High Protein", desc:"Steak, arugula, parmesan, tomato, lemon vinaigrette" },
+            { name:"Harvest Bowl",               protein:40, calories:705, price:"$15.75", category:"Bowl",   diet:"High Protein", desc:"Chicken, sweet potato, apples, goat cheese, roasted almonds" },
             { name:"Kale Caesar + Chicken",      protein:38, calories:490, price:"$14.75", category:"Salad",  diet:"Lean",         desc:"Grilled chicken, kale, parmesan, breadcrumbs, caesar dressing" },
             { name:"Guacamole Greens Bowl",      protein:36, calories:545, price:"$14.25", category:"Bowl",   diet:"Lean",         desc:"Chicken, avocado, tomato, lime, cilantro, romaine" },
             { name:"Fish Taco Bowl",             protein:32, calories:570, price:"$15.75", category:"Bowl",   diet:"High Protein", desc:"Blackened fish, rice, cabbage, avocado, lime crema" },
@@ -645,160 +731,566 @@ const restaurantData = {
         ]
     },
     tacobell: {
-        name: "Taco Bell",
-        tip: "💡 Power Menu items are your best bet. Swap rice for extra protein filling, and add black beans for an extra 5g protein free!",
+        name: "Taco Bell", emoji: "🌮", category: "Mexican",
+        topProtein: 42,
+        tip: "💡 Power Menu Bowl is your best bet. Add black beans for an extra 5g protein at no cost!",
         items: [
-            { name:"Power Menu Bowl – Chicken",    protein:42, calories:470, price:"$7.49", category:"Bowl",      diet:"High Protein", desc:"Grilled chicken, rice, black beans, guac, sour cream, cheese, lettuce" },
-            { name:"Grande Scrambler Burrito",     protein:38, calories:650, price:"$5.49", category:"Breakfast", diet:"High Protein", desc:"Scrambled eggs, sausage, cheese, potatoes, sour cream in a flour tortilla" },
-            { name:"Chicken Quesadilla",           protein:37, calories:510, price:"$5.49", category:"Quesadilla",diet:"High Protein", desc:"Grilled chicken, three-cheese blend, creamy jalapeño sauce" },
-            { name:"Power Menu Bowl – Steak",      protein:36, calories:490, price:"$8.49", category:"Bowl",      diet:"High Protein", desc:"Steak, rice, black beans, guac, sour cream, cheese, lettuce" },
-            { name:"Cantina Chicken Burrito",      protein:34, calories:580, price:"$6.99", category:"Burrito",   diet:"High Protein", desc:"Grilled chicken, rice, black beans, chipotle sauce, avocado ranch" },
-            { name:"Double Steak Grilled Cheese Burrito", protein:31, calories:720, price:"$7.99", category:"Burrito", diet:"High Protein", desc:"Double steak, rice, beans, nacho cheese, chipotle sauce, grilled" },
-            { name:"Breakfast Crunchwrap – Bacon", protein:26, calories:670, price:"$4.99", category:"Breakfast", diet:"Classic",      desc:"Scrambled eggs, bacon, cheese, hash brown in a grilled flour tortilla" },
+            { name:"Power Menu Bowl – Chicken",          protein:42, calories:470, price:"$7.49", category:"Bowl",       diet:"High Protein", desc:"Grilled chicken, rice, black beans, guac, sour cream, cheese" },
+            { name:"Grande Scrambler Burrito",           protein:38, calories:650, price:"$5.49", category:"Breakfast",  diet:"High Protein", desc:"Scrambled eggs, sausage, cheese, potatoes, sour cream" },
+            { name:"Chicken Quesadilla",                 protein:37, calories:510, price:"$5.49", category:"Quesadilla", diet:"High Protein", desc:"Grilled chicken, three-cheese blend, creamy jalapeño sauce" },
+            { name:"Power Menu Bowl – Steak",            protein:36, calories:490, price:"$8.49", category:"Bowl",       diet:"High Protein", desc:"Steak, rice, black beans, guac, sour cream, cheese, lettuce" },
+            { name:"Cantina Chicken Burrito",            protein:34, calories:580, price:"$6.99", category:"Burrito",    diet:"High Protein", desc:"Grilled chicken, rice, black beans, chipotle sauce, avocado ranch" },
+            { name:"Double Steak Grilled Cheese Burrito",protein:31, calories:720, price:"$7.99", category:"Burrito",    diet:"High Protein", desc:"Double steak, rice, beans, nacho cheese, chipotle sauce" },
+            { name:"Breakfast Crunchwrap – Bacon",       protein:26, calories:670, price:"$4.99", category:"Breakfast",  diet:"Classic",      desc:"Scrambled eggs, bacon, cheese, hash brown in grilled tortilla" },
         ]
     },
     jackinthebox: {
-        name: "Jack in the Box",
-        tip: "💡 The Jumbo Jack with a side of grilled chicken strips is a killer protein combo. Avoid the tacos — they're low protein for the calories!",
+        name: "Jack in the Box", emoji: "🍟", category: "Fast Food",
+        topProtein: 44,
+        tip: "💡 Grilled Chicken Strips are the hidden gem — 44g protein at only 200 calories!",
         items: [
-            { name:"Grilled Chicken Strips (4-pc)",   protein:44, calories:200, price:"$6.49", category:"Chicken",  diet:"Lean",         desc:"Four grilled chicken strips — best protein-to-calorie on the menu!" },
-            { name:"Double Bacon Cheeseburger",       protein:40, calories:760, price:"$7.49", category:"Burger",   diet:"High Protein", desc:"Two beef patties, bacon, American cheese, lettuce, tomato, mayo" },
-            { name:"Sourdough Jack Burger",           protein:36, calories:710, price:"$7.29", category:"Burger",   diet:"High Protein", desc:"Beef patty, bacon, Swiss & American cheese, tomato on sourdough" },
-            { name:"Grilled Chicken Sandwich",        protein:34, calories:410, price:"$6.29", category:"Sandwich", diet:"Lean",         desc:"Grilled chicken breast, lettuce, tomato, mayo on sesame bun" },
-            { name:"Jumbo Jack w/ Cheese",            protein:30, calories:600, price:"$5.99", category:"Burger",   diet:"High Protein", desc:"Beef patty, American cheese, lettuce, tomato, onion, pickles, mayo" },
-            { name:"Breakfast Jack",                  protein:18, calories:360, price:"$3.49", category:"Breakfast",diet:"Classic",      desc:"Ham, egg, American cheese on a sesame bun" },
-            { name:"Chicken Teriyaki Bowl",           protein:32, calories:580, price:"$7.49", category:"Bowl",     diet:"High Protein", desc:"Teriyaki chicken, steamed rice, broccoli, teriyaki sauce" },
+            { name:"Grilled Chicken Strips (4-pc)",  protein:44, calories:200, price:"$6.49", category:"Chicken",  diet:"Lean",         desc:"Four grilled chicken strips — best protein-to-calorie on the menu!" },
+            { name:"Double Bacon Cheeseburger",      protein:40, calories:760, price:"$7.49", category:"Burger",   diet:"High Protein", desc:"Two beef patties, bacon, American cheese, lettuce, tomato, mayo" },
+            { name:"Sourdough Jack Burger",          protein:36, calories:710, price:"$7.29", category:"Burger",   diet:"High Protein", desc:"Beef patty, bacon, Swiss & American cheese, tomato on sourdough" },
+            { name:"Grilled Chicken Sandwich",       protein:34, calories:410, price:"$6.29", category:"Sandwich", diet:"Lean",         desc:"Grilled chicken breast, lettuce, tomato, mayo on sesame bun" },
+            { name:"Chicken Teriyaki Bowl",          protein:32, calories:580, price:"$7.49", category:"Bowl",     diet:"High Protein", desc:"Teriyaki chicken, steamed rice, broccoli, teriyaki sauce" },
+            { name:"Jumbo Jack w/ Cheese",           protein:30, calories:600, price:"$5.99", category:"Burger",   diet:"High Protein", desc:"Beef patty, American cheese, lettuce, tomato, onion, pickles, mayo" },
+            { name:"Breakfast Jack",                 protein:18, calories:360, price:"$3.49", category:"Breakfast",diet:"Classic",      desc:"Ham, egg, American cheese on a sesame bun" },
         ]
+    },
+    wendys: {
+        name: "Wendy's", emoji: "🍔", category: "Fast Food",
+        topProtein: 50,
+        tip: "💡 The Dave's Double is Wendy's best protein value. Pair with a side salad instead of fries!",
+        items: [
+            { name:"Dave's Double",                   protein:50, calories:840, price:"$7.49", category:"Burger",   diet:"High Protein", desc:"Two beef patties, cheese, lettuce, tomato, onion, pickles, mayo" },
+            { name:"Grilled Chicken Sandwich",        protein:40, calories:370, price:"$6.29", category:"Sandwich", diet:"Lean",         desc:"Grilled chicken, lettuce, tomato, honey mustard on bun" },
+            { name:"Dave's Single",                   protein:30, calories:590, price:"$5.99", category:"Burger",   diet:"High Protein", desc:"Beef patty, cheese, lettuce, tomato, onion, pickles, mayo" },
+            { name:"Grilled Chicken Wrap",            protein:28, calories:270, price:"$4.99", category:"Wrap",     diet:"Lean",         desc:"Grilled chicken, lettuce, cheese, ranch in flour tortilla" },
+            { name:"Taco Salad",                      protein:26, calories:630, price:"$8.99", category:"Salad",    diet:"Classic",      desc:"Ground beef, cheese, salsa, sour cream, tortilla chips" },
+            { name:"Baconator",                       protein:48, calories:950, price:"$8.49", category:"Burger",   diet:"High Protein", desc:"Two beef patties, six strips bacon, cheese, mayo, ketchup" },
+            { name:"Grilled Chicken BLT Salad",       protein:34, calories:430, price:"$9.49", category:"Salad",    diet:"Lean",         desc:"Grilled chicken, bacon, lettuce, tomato, cheese" },
+        ]
+    },
+    burgerking: {
+        name: "Burger King", emoji: "👑", category: "Fast Food",
+        topProtein: 46,
+        tip: "💡 Double Whopper with cheese packs 46g protein. Skip the fries and get a side garden salad instead!",
+        items: [
+            { name:"Double Whopper w/ Cheese",     protein:46, calories:900, price:"$7.99", category:"Burger",   diet:"High Protein", desc:"Two beef patties, cheese, lettuce, tomato, onion, pickles, mayo" },
+            { name:"Grilled Chicken Sandwich",     protein:37, calories:470, price:"$6.49", category:"Sandwich", diet:"Lean",         desc:"Grilled chicken, lettuce, tomato, mayo on sesame bun" },
+            { name:"Whopper w/ Cheese",            protein:28, calories:710, price:"$6.49", category:"Burger",   diet:"High Protein", desc:"Beef patty, cheese, lettuce, tomato, onion, pickles, mayo" },
+            { name:"Bacon King",                   protein:44, calories:1010,price:"$8.49", category:"Burger",   diet:"High Protein", desc:"Two beef patties, bacon, cheese, ketchup, mayo" },
+            { name:"Impossible Whopper",           protein:25, calories:630, price:"$7.99", category:"Burger",   diet:"Vegan",        desc:"Plant-based patty, lettuce, tomato, onion, pickles, mayo" },
+            { name:"Chicken Jr.",                  protein:20, calories:450, price:"$4.49", category:"Sandwich", diet:"Classic",      desc:"Crispy chicken, lettuce, mayo on sesame bun" },
+            { name:"Croissan'wich w/ Sausage Egg", protein:22, calories:500, price:"$4.99", category:"Breakfast",diet:"Classic",      desc:"Sausage, egg, cheese on a buttery croissant" },
+        ]
+    },
+    innout: {
+        name: "In-N-Out Burger", emoji: "🍔", category: "Fast Food",
+        topProtein: 48,
+        tip: "💡 Order a 3x3 or 4x4 protein style (lettuce wrap instead of bun) to cut carbs while maxing protein!",
+        items: [
+            { name:"4x4 Protein Style",       protein:48, calories:520, price:"$7.50", category:"Burger",   diet:"High Protein", desc:"Four patties, four cheese slices, lettuce wrap instead of bun" },
+            { name:"3x3 Protein Style",       protein:38, calories:415, price:"$6.00", category:"Burger",   diet:"High Protein", desc:"Three patties, three cheese slices, lettuce wrap" },
+            { name:"Double-Double",           protein:37, calories:670, price:"$5.45", category:"Burger",   diet:"High Protein", desc:"Two beef patties, two slices cheese, lettuce, tomato, spread" },
+            { name:"Double-Double Protein",   protein:37, calories:520, price:"$5.45", category:"Burger",   diet:"Lean",         desc:"Double-Double in lettuce wrap — no bun, lower carb" },
+            { name:"Cheeseburger",            protein:22, calories:480, price:"$3.45", category:"Burger",   diet:"Classic",      desc:"Beef patty, cheese, lettuce, tomato, onion, spread" },
+            { name:"Hamburger",               protein:18, calories:390, price:"$3.10", category:"Burger",   diet:"Classic",      desc:"Beef patty, lettuce, tomato, onion, spread" },
+            { name:"Flying Dutchman",         protein:32, calories:400, price:"$3.50", category:"Burger",   diet:"Lean",         desc:"Two patties, two cheese slices — no bun, no veggies" },
+        ]
+    },
+    raisingcanes: {
+        name: "Raising Cane's", emoji: "🍗", category: "Chicken",
+        topProtein: 52,
+        tip: "💡 The Box Combo with extra chicken fingers is your best move. Sauce on the side saves calories!",
+        items: [
+            { name:"The Box Combo (4 fingers)", protein:52, calories:760, price:"$11.99", category:"Chicken", diet:"High Protein", desc:"Four chicken fingers, crinkle fries, coleslaw, Cane's sauce, Texas toast" },
+            { name:"3 Finger Combo",            protein:39, calories:610, price:"$9.99",  category:"Chicken", diet:"High Protein", desc:"Three chicken fingers, crinkle fries, coleslaw, Cane's sauce" },
+            { name:"Chicken Finger Sandwich",   protein:34, calories:530, price:"$8.49",  category:"Sandwich",diet:"High Protein", desc:"Two chicken fingers, lettuce, Cane's sauce on toasted bun" },
+            { name:"2 Finger Combo",            protein:26, calories:480, price:"$7.99",  category:"Chicken", diet:"High Protein", desc:"Two chicken fingers, crinkle fries, Cane's sauce" },
+            { name:"Tailgate (6 fingers)",      protein:72, calories:980, price:"$15.99", category:"Chicken", diet:"High Protein", desc:"Six chicken fingers — ultimate protein meal!" },
+            { name:"Chicken Fingers (3-pc)",    protein:36, calories:310, price:"$7.49",  category:"Chicken", diet:"Lean",         desc:"Three chicken fingers, no sides" },
+            { name:"Kids Combo (2 fingers)",    protein:26, calories:420, price:"$6.99",  category:"Chicken", diet:"Classic",      desc:"Two chicken fingers, crinkle fries, kids drink" },
+        ]
+    },
+    wingstop: {
+        name: "Wingstop", emoji: "🍗", category: "Chicken",
+        topProtein: 70,
+        tip: "💡 Classic (bone-in) wings have more protein per piece than boneless. Lemon Pepper or Original Hot are lowest calorie flavors!",
+        items: [
+            { name:"10-pc Classic Wings",         protein:70, calories:720, price:"$14.99", category:"Wings",   diet:"High Protein", desc:"Ten bone-in wings — choose your flavor" },
+            { name:"15-pc Classic Wings",         protein:105,calories:1080,price:"$19.99", category:"Wings",   diet:"High Protein", desc:"Fifteen bone-in wings — serious protein!" },
+            { name:"10-pc Boneless Wings",        protein:50, calories:860, price:"$13.99", category:"Wings",   diet:"High Protein", desc:"Ten boneless chicken wings — choose your flavor" },
+            { name:"6-pc Classic Wings",          protein:42, calories:432, price:"$10.99", category:"Wings",   diet:"High Protein", desc:"Six bone-in wings — great starter" },
+            { name:"Chicken Sandwich",            protein:36, calories:590, price:"$8.99",  category:"Sandwich",diet:"High Protein", desc:"Crispy chicken, pickles, mayo on brioche bun" },
+            { name:"Chicken Tenders (5-pc)",      protein:44, calories:520, price:"$11.99", category:"Chicken", diet:"High Protein", desc:"Five crispy chicken tenders — choose your flavor" },
+            { name:"Thighs (5-pc)",               protein:55, calories:680, price:"$12.99", category:"Chicken", diet:"High Protein", desc:"Five bone-in chicken thighs" },
+        ]
+    },
+    olivegarden: {
+        name: "Olive Garden", emoji: "🍝", category: "Casual Dining",
+        topProtein: 54,
+        tip: "💡 Grilled proteins like chicken or salmon over pasta dishes. Ask for double protein on any entrée!",
+        items: [
+            { name:"Grilled Chicken Parmigiana",  protein:54, calories:690, price:"$18.99", category:"Entrée",   diet:"High Protein", desc:"Grilled chicken breast, marinara, melted cheese, spaghetti" },
+            { name:"Herb-Grilled Salmon",         protein:46, calories:510, price:"$21.99", category:"Entrée",   diet:"Lean",         desc:"Grilled salmon, herb butter, broccoli, asparagus" },
+            { name:"Chicken Alfredo",             protein:44, calories:1440,price:"$17.99", category:"Pasta",    diet:"High Protein", desc:"Grilled chicken, fettuccine, creamy Alfredo sauce" },
+            { name:"Steak Gorgonzola Alfredo",    protein:48, calories:1280,price:"$22.99", category:"Pasta",    diet:"High Protein", desc:"Grilled beef medallions, fettuccine, gorgonzola Alfredo" },
+            { name:"Chicken & Shrimp Carbonara",  protein:52, calories:1350,price:"$19.99", category:"Pasta",    diet:"High Protein", desc:"Chicken, shrimp, bacon, egg-based carbonara sauce" },
+            { name:"Grilled Chicken Margherita",  protein:42, calories:630, price:"$17.99", category:"Entrée",   diet:"Lean",         desc:"Grilled chicken, fresh tomatoes, mozzarella, basil" },
+            { name:"Tour of Italy",               protein:38, calories:1520,price:"$19.99", category:"Combo",    diet:"Classic",      desc:"Chicken parm, lasagna, fettuccine Alfredo" },
+        ]
+    },
+    applebees: {
+        name: "Applebee's", emoji: "🍴", category: "Casual Dining",
+        topProtein: 58,
+        tip: "💡 Stick to grilled options. The 7oz House Sirloin + steamed broccoli is a lean high-protein meal under 500 calories!",
+        items: [
+            { name:"Double Crunch Shrimp",        protein:58, calories:1010,price:"$14.99", category:"Seafood",  diet:"High Protein", desc:"Double portion of crispy shrimp, coleslaw, dipping sauce" },
+            { name:"12oz Ribeye Steak",            protein:56, calories:820, price:"$22.99", category:"Steak",    diet:"High Protein", desc:"Ribeye steak, choice of two sides" },
+            { name:"Grilled Chicken Sandwich",     protein:40, calories:490, price:"$11.99", category:"Sandwich", diet:"Lean",         desc:"Grilled chicken, lettuce, tomato, honey mustard on brioche" },
+            { name:"7oz House Sirloin",            protein:44, calories:370, price:"$14.99", category:"Steak",    diet:"Lean",         desc:"Sirloin steak, choice of two sides — great lean option!" },
+            { name:"Chicken Wonton Tacos",         protein:32, calories:640, price:"$13.99", category:"Appetizer",diet:"Classic",      desc:"Crispy chicken, Asian slaw, edamame, sesame ginger sauce" },
+            { name:"Grilled Salmon",               protein:42, calories:540, price:"$17.99", category:"Seafood",  diet:"Lean",         desc:"Grilled salmon, rice pilaf, seasonal vegetables" },
+            { name:"Classic Bacon Cheeseburger",   protein:36, calories:870, price:"$13.99", category:"Burger",   diet:"High Protein", desc:"Beef patty, bacon, cheese, lettuce, tomato, onion, pickles" },
+        ]
+    },
+    texasroadhouse: {
+        name: "Texas Roadhouse", emoji: "🥩", category: "Steakhouse",
+        topProtein: 72,
+        tip: "💡 The 6oz Sirloin + steamed veggies + house salad is a killer lean protein meal. Avoid the loaded baked potato!",
+        items: [
+            { name:"20oz T-Bone Steak",           protein:72, calories:1180,price:"$32.99", category:"Steak",   diet:"High Protein", desc:"T-bone steak, choice of two sides" },
+            { name:"12oz New York Strip",         protein:60, calories:780, price:"$26.99", category:"Steak",   diet:"High Protein", desc:"NY strip steak, choice of two sides" },
+            { name:"Grilled Chicken",             protein:52, calories:430, price:"$14.99", category:"Chicken", diet:"Lean",         desc:"Two grilled chicken breasts, choice of two sides" },
+            { name:"6oz Sirloin",                 protein:38, calories:250, price:"$13.99", category:"Steak",   diet:"Lean",         desc:"Sirloin steak — lean, high protein, low calorie!" },
+            { name:"Grilled Salmon",              protein:44, calories:490, price:"$19.99", category:"Seafood", diet:"Lean",         desc:"Atlantic salmon, choice of two sides" },
+            { name:"Portobello Mushroom Chicken", protein:48, calories:580, price:"$16.99", category:"Chicken", diet:"High Protein", desc:"Grilled chicken, portobello mushroom, jack cheese" },
+            { name:"Country Fried Chicken",       protein:36, calories:870, price:"$14.99", category:"Chicken", diet:"Classic",      desc:"Crispy fried chicken, cream gravy, mashed potatoes" },
+        ]
+    },
+    outback: {
+        name: "Outback Steakhouse", emoji: "🥩", category: "Steakhouse",
+        topProtein: 68,
+        tip: "💡 Victoria's Filet is the leanest steak on the menu. Pair with steamed vegetables and a house salad for a perfect macro meal!",
+        items: [
+            { name:"Outback Special 14oz",       protein:68, calories:890, price:"$26.99", category:"Steak",   diet:"High Protein", desc:"Seasoned sirloin steak, choice of two sides" },
+            { name:"Victoria's Filet 9oz",       protein:52, calories:480, price:"$32.99", category:"Steak",   diet:"Lean",         desc:"Tender filet mignon — leanest steak on the menu" },
+            { name:"Grilled Chicken on the Barbie",protein:48, calories:390, price:"$16.99", category:"Chicken", diet:"Lean",        desc:"Grilled chicken breast, choice of two sides" },
+            { name:"Perfectly Grilled Salmon",   protein:44, calories:460, price:"$21.99", category:"Seafood", diet:"Lean",         desc:"Grilled salmon, seasonal vegetables" },
+            { name:"Ribeye 12oz",                protein:60, calories:820, price:"$29.99", category:"Steak",   diet:"High Protein", desc:"Ribeye steak, choice of two sides" },
+            { name:"Alice Springs Chicken",      protein:54, calories:780, price:"$18.99", category:"Chicken", diet:"High Protein", desc:"Grilled chicken, bacon, mushrooms, honey mustard, cheese" },
+            { name:"Shrimp on the Barbie",       protein:32, calories:310, price:"$12.99", category:"Seafood", diet:"Lean",         desc:"Grilled shrimp skewers, cocktail sauce" },
+        ]
+    },
+    chilis: {
+        name: "Chili's", emoji: "🌶️", category: "Casual Dining",
+        topProtein: 56,
+        tip: "💡 The Grilled Chicken sandwich or Classic Sirloin are your best protein bets. Avoid the Awesome Blossom!",
+        items: [
+            { name:"Classic Sirloin 10oz",        protein:56, calories:540, price:"$19.99", category:"Steak",    diet:"High Protein", desc:"Sirloin steak, choice of two sides" },
+            { name:"Grilled Chicken Sandwich",    protein:40, calories:480, price:"$12.99", category:"Sandwich", diet:"Lean",         desc:"Grilled chicken, lettuce, tomato, avocado on brioche" },
+            { name:"Chicken Fajitas",             protein:48, calories:680, price:"$16.99", category:"Fajitas",  diet:"High Protein", desc:"Grilled chicken, peppers, onions, tortillas, toppings" },
+            { name:"Steak Fajitas",               protein:44, calories:720, price:"$18.99", category:"Fajitas",  diet:"High Protein", desc:"Grilled steak, peppers, onions, tortillas, toppings" },
+            { name:"Grilled Salmon",              protein:42, calories:490, price:"$18.99", category:"Seafood",  diet:"Lean",         desc:"Grilled salmon, garlic herb butter, seasonal vegetables" },
+            { name:"Bacon Burger",                protein:36, calories:870, price:"$13.99", category:"Burger",   diet:"High Protein", desc:"Beef patty, bacon, cheese, lettuce, tomato, pickles" },
+            { name:"Chicken Enchilada Soup",      protein:18, calories:280, price:"$6.99",  category:"Soup",     diet:"Classic",      desc:"Chicken, cheese, tortilla strips, enchilada broth" },
+        ]
+    },
+    panda: {
+        name: "Panda Express", emoji: "🐼", category: "Asian",
+        topProtein: 46,
+        tip: "💡 Build a bowl with Grilled Teriyaki Chicken + Super Greens instead of fried rice for a lean 46g protein meal!",
+        items: [
+            { name:"Grilled Teriyaki Chicken",    protein:46, calories:300, price:"$10.99", category:"Entrée",  diet:"Lean",         desc:"Grilled chicken thigh, teriyaki sauce — best lean option!" },
+            { name:"String Bean Chicken Breast",  protein:28, calories:190, price:"$10.99", category:"Entrée",  diet:"Lean",         desc:"Chicken breast, string beans, ginger soy sauce" },
+            { name:"Kung Pao Chicken",            protein:26, calories:290, price:"$10.99", category:"Entrée",  diet:"High Protein", desc:"Chicken, peanuts, vegetables, chili sauce" },
+            { name:"Broccoli Beef",               protein:22, calories:150, price:"$10.99", category:"Entrée",  diet:"Lean",         desc:"Beef, broccoli, ginger soy sauce" },
+            { name:"Beijing Beef",                protein:20, calories:470, price:"$10.99", category:"Entrée",  diet:"Classic",      desc:"Crispy beef, bell peppers, onions, sweet tangy sauce" },
+            { name:"Honey Walnut Shrimp",         protein:18, calories:360, price:"$11.99", category:"Entrée",  diet:"Classic",      desc:"Crispy shrimp, honey sauce, walnuts, melon" },
+            { name:"Mushroom Chicken",            protein:24, calories:220, price:"$10.99", category:"Entrée",  diet:"Lean",         desc:"Chicken, mushrooms, zucchini, light ginger soy sauce" },
+        ]
+    },
+    chickenshack: {
+        name: "Shake Shack", emoji: "🍔", category: "Fast Food",
+        topProtein: 44,
+        tip: "💡 The Double SmokeShack is your best protein bet. Swap fries for a side salad to keep it lean!",
+        items: [
+            { name:"Double SmokeShack",           protein:44, calories:840, price:"$10.99", category:"Burger",   diet:"High Protein", desc:"Two beef patties, bacon, cherry peppers, ShackSauce, cheese" },
+            { name:"Double ShackBurger",          protein:40, calories:780, price:"$9.99",  category:"Burger",   diet:"High Protein", desc:"Two beef patties, cheese, lettuce, tomato, ShackSauce" },
+            { name:"Chick'n Shack",               protein:30, calories:590, price:"$8.99",  category:"Sandwich", diet:"High Protein", desc:"Crispy chicken, pickles, buttermilk herb mayo on potato bun" },
+            { name:"Grilled Chicken Sandwich",    protein:32, calories:430, price:"$8.99",  category:"Sandwich", diet:"Lean",         desc:"Grilled chicken, lettuce, pickles, herb mayo on potato bun" },
+            { name:"ShackBurger",                 protein:22, calories:490, price:"$6.99",  category:"Burger",   diet:"Classic",      desc:"Beef patty, cheese, lettuce, tomato, ShackSauce" },
+            { name:"Smoke Stack",                 protein:26, calories:580, price:"$8.49",  category:"Burger",   diet:"High Protein", desc:"Beef patty, bacon, cherry peppers, ShackSauce" },
+            { name:"Avocado Bacon Burger",        protein:28, calories:640, price:"$9.49",  category:"Burger",   diet:"High Protein", desc:"Beef patty, avocado, bacon, cheese, lettuce, tomato" },
+        ]
+    },
+    fiveGuys: {
+        name: "Five Guys", emoji: "🍔", category: "Fast Food",
+        topProtein: 52,
+        tip: "💡 Order a Burger (double patty) with extra toppings like jalapeños and mushrooms — all free! Skip the bun for a protein-style bowl.",
+        items: [
+            { name:"Bacon Cheeseburger",          protein:52, calories:920, price:"$11.99", category:"Burger",   diet:"High Protein", desc:"Two beef patties, bacon, cheese, your choice of free toppings" },
+            { name:"Cheeseburger",                protein:40, calories:790, price:"$9.99",  category:"Burger",   diet:"High Protein", desc:"Two beef patties, cheese, your choice of free toppings" },
+            { name:"Bacon Burger",                protein:44, calories:780, price:"$10.99", category:"Burger",   diet:"High Protein", desc:"Two beef patties, bacon, your choice of free toppings" },
+            { name:"Grilled Cheese",              protein:16, calories:430, price:"$5.99",  category:"Sandwich", diet:"Classic",      desc:"Two grilled cheese slices with toppings" },
+            { name:"Little Bacon Cheeseburger",   protein:30, calories:590, price:"$8.99",  category:"Burger",   diet:"High Protein", desc:"One beef patty, bacon, cheese, your choice of free toppings" },
+            { name:"Veggie Sandwich",             protein:12, calories:440, price:"$7.99",  category:"Sandwich", diet:"Vegan",        desc:"Grilled veggies, your choice of toppings" },
+            { name:"Grilled Chicken Sandwich",    protein:36, calories:470, price:"$9.99",  category:"Sandwich", diet:"Lean",         desc:"Grilled chicken breast, your choice of free toppings" },
+        ]
+    },
+    popeyes: {
+        name: "Popeyes", emoji: "🍗", category: "Chicken",
+        topProtein: 46,
+        tip: "💡 Blackened Chicken Tenders are the leanest option — 46g protein at only 170 calories! Avoid the biscuits.",
+        items: [
+            { name:"Blackened Chicken Tenders (5-pc)", protein:46, calories:170, price:"$9.99",  category:"Chicken", diet:"Lean",         desc:"Five blackened (not fried) chicken tenders — incredible macros!" },
+            { name:"Chicken Sandwich",                 protein:38, calories:700, price:"$5.99",  category:"Sandwich",diet:"High Protein", desc:"Crispy chicken, pickles, mayo on brioche bun" },
+            { name:"Spicy Chicken Sandwich",           protein:38, calories:700, price:"$5.99",  category:"Sandwich",diet:"High Protein", desc:"Spicy crispy chicken, pickles, mayo on brioche bun" },
+            { name:"3-pc Chicken Tenders",             protein:30, calories:340, price:"$6.99",  category:"Chicken", diet:"High Protein", desc:"Three crispy chicken tenders" },
+            { name:"3-pc Handcrafted Tenders Combo",   protein:36, calories:560, price:"$10.99", category:"Chicken", diet:"High Protein", desc:"Three tenders, regular side, biscuit" },
+            { name:"2-pc Leg & Thigh",                 protein:32, calories:420, price:"$4.99",  category:"Chicken", diet:"High Protein", desc:"One leg, one thigh — classic bone-in chicken" },
+            { name:"8-pc Family Meal Breast",          protein:44, calories:440, price:"$19.99", category:"Chicken", diet:"High Protein", desc:"Chicken breast pieces — highest protein cut" },
+        ]
+    },
+    kfc: {
+        name: "KFC", emoji: "🍗", category: "Chicken",
+        topProtein: 44,
+        tip: "💡 Remove the skin from KFC chicken to cut fat in half while keeping all the protein!",
+        items: [
+            { name:"Grilled Chicken Breast",      protein:44, calories:210, price:"$5.99",  category:"Chicken", diet:"Lean",         desc:"Grilled chicken breast — best lean option at KFC!" },
+            { name:"Extra Crispy Chicken Breast", protein:40, calories:530, price:"$5.99",  category:"Chicken", diet:"High Protein", desc:"Extra crispy fried chicken breast" },
+            { name:"Original Recipe Breast",      protein:38, calories:390, price:"$5.49",  category:"Chicken", diet:"High Protein", desc:"Original recipe fried chicken breast" },
+            { name:"Chicken Sandwich",            protein:34, calories:650, price:"$5.99",  category:"Sandwich",diet:"High Protein", desc:"Crispy chicken, pickles, mayo on brioche bun" },
+            { name:"Famous Bowl",                 protein:28, calories:720, price:"$7.99",  category:"Bowl",    diet:"Classic",      desc:"Chicken, mashed potatoes, corn, gravy, cheese" },
+            { name:"8-pc Bucket Original",        protein:38, calories:390, price:"$22.99", category:"Chicken", diet:"High Protein", desc:"Per piece average — mix of original recipe pieces" },
+            { name:"Grilled Chicken Thigh",       protein:26, calories:170, price:"$4.49",  category:"Chicken", diet:"Lean",         desc:"Grilled chicken thigh — lean and flavorful" },
+        ]
+    },
+    dominos: {
+        name: "Domino's", emoji: "🍕", category: "Pizza",
+        topProtein: 38,
+        tip: "💡 Thin crust with double chicken topping maximizes protein while minimizing carbs. Avoid extra cheese — it adds fat not protein!",
+        items: [
+            { name:"Chicken Habanero Sandwich",   protein:38, calories:550, price:"$8.99",  category:"Sandwich", diet:"High Protein", desc:"Grilled chicken, habanero mango sauce, cheese, veggies" },
+            { name:"Buffalo Chicken Pizza (lg)",  protein:36, calories:680, price:"$14.99", category:"Pizza",    diet:"High Protein", desc:"Grilled chicken, buffalo sauce, blue cheese, thin crust" },
+            { name:"Chicken Parm Sandwich",       protein:34, calories:640, price:"$8.99",  category:"Sandwich", diet:"High Protein", desc:"Chicken, marinara, parmesan, mozzarella on artisan bread" },
+            { name:"Grilled Chicken Pizza (lg)",  protein:32, calories:620, price:"$14.99", category:"Pizza",    diet:"High Protein", desc:"Grilled chicken, garlic parmesan sauce, thin crust" },
+            { name:"Chicken Wings (8-pc)",        protein:44, calories:480, price:"$9.99",  category:"Wings",    diet:"High Protein", desc:"Eight bone-in chicken wings — choose your sauce" },
+            { name:"Chicken Alfredo Pasta",       protein:30, calories:680, price:"$7.99",  category:"Pasta",    diet:"High Protein", desc:"Grilled chicken, fettuccine, creamy Alfredo sauce" },
+            { name:"Philly Cheese Steak Sandwich",protein:32, calories:590, price:"$8.99",  category:"Sandwich", diet:"High Protein", desc:"Steak, peppers, onions, provolone on artisan bread" },
+        ]
+    },
+    pizzahut: {
+        name: "Pizza Hut", emoji: "🍕", category: "Pizza",
+        topProtein: 42,
+        tip: "💡 Thin & Crispy crust with chicken toppings is your best protein-to-calorie ratio. Pair with a side salad!",
+        items: [
+            { name:"Bone-Out Wings (8-pc)",       protein:42, calories:560, price:"$10.99", category:"Wings",    diet:"High Protein", desc:"Eight boneless wings — choose your flavor" },
+            { name:"Traditional Wings (8-pc)",    protein:48, calories:480, price:"$10.99", category:"Wings",    diet:"High Protein", desc:"Eight bone-in wings — more protein than boneless!" },
+            { name:"Grilled Chicken Pizza (lg)",  protein:36, calories:640, price:"$14.99", category:"Pizza",    diet:"High Protein", desc:"Grilled chicken, thin crust, marinara, mozzarella" },
+            { name:"Meat Lovers Pizza (lg)",      protein:34, calories:820, price:"$15.99", category:"Pizza",    diet:"High Protein", desc:"Pepperoni, sausage, beef, bacon, ham, pork" },
+            { name:"Tuscani Chicken Pasta",       protein:38, calories:720, price:"$9.99",  category:"Pasta",    diet:"High Protein", desc:"Chicken, pasta, creamy Alfredo sauce, cheese" },
+            { name:"Ultimate Cheese Lover's",     protein:22, calories:740, price:"$13.99", category:"Pizza",    diet:"Classic",      desc:"Five cheese blend on pan crust" },
+            { name:"BBQ Chicken Pizza (lg)",      protein:32, calories:680, price:"$14.99", category:"Pizza",    diet:"High Protein", desc:"Grilled chicken, BBQ sauce, onions, mozzarella" },
+        ]
+    },
+    salsarita: {
+        name: "Starbucks", emoji: "☕", category: "Breakfast",
+        topProtein: 30,
+        tip: "💡 The Egg White & Roasted Red Pepper Egg Bites are the best protein-to-calorie item. Pair with a Protein Box for a solid 30g+ breakfast!",
+        items: [
+            { name:"Egg White & Roasted Red Pepper Egg Bites", protein:19, calories:170, price:"$5.95", category:"Breakfast", diet:"Lean",         desc:"Egg whites, roasted red pepper, spinach, feta" },
+            { name:"Bacon & Gruyere Egg Bites",                protein:19, calories:300, price:"$5.95", category:"Breakfast", diet:"Classic",      desc:"Bacon, gruyere cheese, egg bites" },
+            { name:"Turkey Bacon & Egg White Sandwich",        protein:17, calories:230, price:"$5.25", category:"Breakfast", diet:"Lean",         desc:"Turkey bacon, egg whites, reduced-fat white cheddar" },
+            { name:"Protein Box – Eggs & Cheese",              protein:25, calories:470, price:"$8.45", category:"Snack",     diet:"High Protein", desc:"Hard-boiled eggs, cheese, grapes, apples, peanut butter, multigrain muesli" },
+            { name:"Chicken & Quinoa Protein Bowl",            protein:30, calories:420, price:"$9.95", category:"Lunch",     diet:"Lean",         desc:"Grilled chicken, quinoa, black beans, corn, avocado" },
+            { name:"Spinach & Feta Wrap",                      protein:20, calories:290, price:"$5.95", category:"Breakfast", diet:"Lean",         desc:"Egg whites, spinach, feta, tomatoes in whole wheat wrap" },
+            { name:"Sous Vide Egg Bites: Bacon",               protein:19, calories:310, price:"$5.95", category:"Breakfast", diet:"Classic",      desc:"Bacon, gruyere, monterey jack, egg bites" },
+        ]
+    },
+    dennys: {
+        name: "Denny's", emoji: "🍳", category: "Breakfast",
+        topProtein: 52,
+        tip: "💡 The Grand Slam with extra eggs and bacon is a classic high-protein breakfast. Ask for egg whites to cut fat!",
+        items: [
+            { name:"Lumberjack Slam",             protein:52, calories:1070,price:"$12.99", category:"Breakfast",diet:"High Protein", desc:"Two eggs, two bacon, two sausage, two pancakes, hash browns, toast" },
+            { name:"Grand Slam",                  protein:36, calories:720, price:"$8.99",  category:"Breakfast",diet:"High Protein", desc:"Two eggs, two bacon, two sausage, two pancakes" },
+            { name:"Fit Slam",                    protein:30, calories:390, price:"$9.99",  category:"Breakfast",diet:"Lean",         desc:"Egg whites, turkey bacon, seasonal fruit, English muffin" },
+            { name:"T-Bone Steak & Eggs",         protein:54, calories:860, price:"$18.99", category:"Entrée",   diet:"High Protein", desc:"T-bone steak, two eggs, hash browns, toast" },
+            { name:"Grilled Chicken Sandwich",    protein:36, calories:510, price:"$11.99", category:"Sandwich", diet:"Lean",         desc:"Grilled chicken, lettuce, tomato, mayo on brioche" },
+            { name:"Sirloin Steak",               protein:44, calories:460, price:"$16.99", category:"Entrée",   diet:"Lean",         desc:"Sirloin steak, two sides" },
+            { name:"Build Your Own Omelette",     protein:28, calories:580, price:"$10.99", category:"Breakfast",diet:"Classic",      desc:"Three eggs, your choice of fillings" },
+        ]
+    },
+    ihop: {
+        name: "IHOP", emoji: "🥞", category: "Breakfast",
+        topProtein: 48,
+        tip: "💡 The Chicken & Waffles or Big Steak Omelette are your best protein options. Ask for egg whites in any omelette!",
+        items: [
+            { name:"Big Steak Omelette",          protein:48, calories:990, price:"$14.99", category:"Breakfast",diet:"High Protein", desc:"Steak, eggs, peppers, onions, mushrooms, cheese, hash browns" },
+            { name:"Chicken & Waffles",           protein:42, calories:890, price:"$14.99", category:"Entrée",   diet:"High Protein", desc:"Crispy chicken, Belgian waffles, maple syrup" },
+            { name:"Grilled Tilapia",             protein:40, calories:380, price:"$14.99", category:"Entrée",   diet:"Lean",         desc:"Grilled tilapia, seasonal vegetables, rice pilaf" },
+            { name:"Country Fried Steak & Eggs",  protein:38, calories:1020,price:"$13.99", category:"Breakfast",diet:"High Protein", desc:"Country fried steak, two eggs, hash browns, toast" },
+            { name:"Simple & Fit Omelette",       protein:28, calories:330, price:"$11.99", category:"Breakfast",diet:"Lean",         desc:"Egg whites, spinach, mushrooms, tomatoes, low-fat cheese" },
+            { name:"Bacon Temptation Omelette",   protein:36, calories:760, price:"$13.99", category:"Breakfast",diet:"High Protein", desc:"Bacon, eggs, cheese, hash browns inside omelette" },
+            { name:"Turkey Bacon Scramble",       protein:30, calories:640, price:"$12.99", category:"Breakfast",diet:"Classic",      desc:"Turkey bacon, scrambled eggs, cheese, veggies" },
+        ]
+    },
+    moes: {
+        name: "Moe's Southwest Grill", emoji: "🌯", category: "Mexican",
+        topProtein: 54,
+        tip: "💡 The Homewrecker Burrito with double steak is a protein powerhouse. Ask for extra beans for free protein!",
+        items: [
+            { name:"Homewrecker Burrito – Steak", protein:54, calories:870, price:"$10.99", category:"Burrito",    diet:"High Protein", desc:"Steak, rice, beans, cheese, sour cream, salsa, guac in flour tortilla" },
+            { name:"Homewrecker Burrito – Chicken",protein:50, calories:820, price:"$9.99",  category:"Burrito",    diet:"High Protein", desc:"Chicken, rice, beans, cheese, sour cream, salsa in flour tortilla" },
+            { name:"Stack Burrito Bowl – Steak",  protein:48, calories:620, price:"$10.99", category:"Bowl",       diet:"High Protein", desc:"Steak, rice, beans, cheese, sour cream, salsa, lettuce" },
+            { name:"Chicken Stack Bowl",          protein:44, calories:570, price:"$9.99",  category:"Bowl",       diet:"High Protein", desc:"Chicken, rice, beans, cheese, sour cream, salsa, lettuce" },
+            { name:"Chicken Quesadilla",          protein:38, calories:680, price:"$8.99",  category:"Quesadilla", diet:"High Protein", desc:"Chicken, three-cheese blend in flour tortilla" },
+            { name:"Chicken Taco Salad",          protein:36, calories:540, price:"$9.99",  category:"Salad",      diet:"Lean",         desc:"Chicken, romaine, beans, cheese, salsa, sour cream, tortilla strips" },
+            { name:"Tofu Burrito Bowl",           protein:24, calories:580, price:"$9.49",  category:"Bowl",       diet:"Vegan",        desc:"Tofu, rice, black beans, peppers, salsa, guacamole" },
+        ]
+    },
+    noodles: {
+        name: "Noodles & Company", emoji: "🍜", category: "Asian",
+        topProtein: 42,
+        tip: "💡 Add double protein to any dish for max gains. The Zucchini Pesto with chicken is the leanest high-protein option!",
+        items: [
+            { name:"Wisconsin Mac & Cheese + Chicken", protein:42, calories:860, price:"$11.99", category:"Pasta",   diet:"High Protein", desc:"Mac & cheese, grilled chicken, cavatappi pasta" },
+            { name:"Penne Rosa + Chicken",             protein:38, calories:720, price:"$11.49", category:"Pasta",   diet:"High Protein", desc:"Penne, spicy tomato cream sauce, mushrooms, spinach, chicken" },
+            { name:"Zucchini Pesto + Chicken",         protein:36, calories:490, price:"$11.99", category:"Pasta",   diet:"Lean",         desc:"Zucchini noodles, pesto, chicken — great lean option!" },
+            { name:"Japanese Pan Noodles + Steak",     protein:40, calories:780, price:"$12.49", category:"Asian",   diet:"High Protein", desc:"Udon noodles, steak, mushrooms, spinach, sweet soy broth" },
+            { name:"Bangkok Curry + Shrimp",           protein:32, calories:590, price:"$11.99", category:"Asian",   diet:"High Protein", desc:"Rice noodles, shrimp, coconut curry broth, veggies" },
+            { name:"Chicken Noodle Soup",              protein:22, calories:180, price:"$6.99",  category:"Soup",    diet:"Lean",         desc:"Chicken, egg noodles, carrots, celery — great lean option" },
+            { name:"Pad Thai + Chicken",               protein:34, calories:660, price:"$11.99", category:"Asian",   diet:"High Protein", desc:"Rice noodles, chicken, egg, bean sprouts, peanuts, pad thai sauce" },
+        ]
+    },
+    jimmyjohns: {
+        name: "Jimmy John's", emoji: "🥖", category: "Sandwiches",
+        topProtein: 44,
+        tip: "💡 Order an Unwich (lettuce wrap) instead of bread to cut carbs while keeping all the protein!",
+        items: [
+            { name:"#9 Italian Night Club",       protein:44, calories:690, price:"$9.99",  category:"Sub",      diet:"High Protein", desc:"Salami, capicola, ham, provolone, lettuce, tomato, onion, mayo" },
+            { name:"#12 Beach Club",              protein:40, calories:580, price:"$9.49",  category:"Sub",      diet:"High Protein", desc:"Tuna, provolone, cucumber, avocado, lettuce, tomato" },
+            { name:"#13 Jimmy Cubano",            protein:38, calories:640, price:"$9.49",  category:"Sub",      diet:"High Protein", desc:"Smoked ham, pulled pork, salami, provolone, pickles, mustard" },
+            { name:"#6 The Veggie",               protein:18, calories:490, price:"$8.49",  category:"Sub",      diet:"Vegan",        desc:"Provolone, avocado, cucumber, lettuce, tomato, mayo" },
+            { name:"#4 Turkey Tom",               protein:34, calories:520, price:"$8.99",  category:"Sub",      diet:"Lean",         desc:"Turkey breast, provolone, lettuce, tomato, mayo" },
+            { name:"#5 Vito",                     protein:36, calories:590, price:"$8.99",  category:"Sub",      diet:"High Protein", desc:"Salami, capicola, provolone, lettuce, tomato, onion, oil, vinegar" },
+            { name:"Big John",                    protein:32, calories:540, price:"$8.49",  category:"Sub",      diet:"High Protein", desc:"Roast beef, mayo, lettuce, tomato" },
+        ]
+    },
+    firehouse: {
+        name: "Firehouse Subs", emoji: "🚒", category: "Sandwiches",
+        topProtein: 52,
+        tip: "💡 The Hook & Ladder or Engineer are your best protein subs. Ask for extra meat — they're generous with portions!",
+        items: [
+            { name:"Hook & Ladder (Medium)",      protein:52, calories:700, price:"$9.99",  category:"Sub",      diet:"High Protein", desc:"Smoked turkey breast, Virginia honey ham, provolone, veggies" },
+            { name:"Engineer (Medium)",           protein:48, calories:740, price:"$9.99",  category:"Sub",      diet:"High Protein", desc:"Corned beef, pastrami, Swiss cheese, mustard, veggies" },
+            { name:"Firehouse Steak & Cheese",    protein:44, calories:760, price:"$10.49", category:"Sub",      diet:"High Protein", desc:"Steak, provolone, peppers, onions, mushrooms" },
+            { name:"Chicken Bacon Ranch",         protein:42, calories:720, price:"$9.99",  category:"Sub",      diet:"High Protein", desc:"Grilled chicken, bacon, ranch, provolone, veggies" },
+            { name:"Italian (Medium)",            protein:40, calories:780, price:"$9.49",  category:"Sub",      diet:"High Protein", desc:"Genoa salami, pepperoni, ham, provolone, veggies" },
+            { name:"Smokehouse Beef & Cheddar",   protein:46, calories:800, price:"$10.49", category:"Sub",      diet:"High Protein", desc:"Smoked beef brisket, cheddar, BBQ sauce, pickles" },
+            { name:"Turkey Bacon Ranch",          protein:38, calories:640, price:"$9.49",  category:"Sub",      diet:"Lean",         desc:"Turkey breast, bacon, ranch, provolone, veggies" },
+        ]
+    },
+    mcdougals: {
+        name: "Whataburger", emoji: "🍔", category: "Fast Food",
+        topProtein: 50,
+        tip: "💡 The Double Meat Whataburger is the protein king. Order it with grilled jalapeños for a flavor boost with zero extra calories!",
+        items: [
+            { name:"Double Meat Whataburger",     protein:50, calories:890, price:"$8.99",  category:"Burger",   diet:"High Protein", desc:"Two beef patties, cheese, lettuce, tomato, onion, pickles, mustard, mayo" },
+            { name:"Grilled Chicken Sandwich",    protein:40, calories:440, price:"$7.49",  category:"Sandwich", diet:"Lean",         desc:"Grilled chicken, lettuce, tomato, mustard on bun" },
+            { name:"Whataburger",                 protein:30, calories:590, price:"$6.49",  category:"Burger",   diet:"High Protein", desc:"Beef patty, lettuce, tomato, onion, pickles, mustard, mayo" },
+            { name:"Bacon & Cheese Whataburger",  protein:36, calories:720, price:"$8.49",  category:"Burger",   diet:"High Protein", desc:"Beef patty, bacon, cheese, lettuce, tomato, onion, pickles" },
+            { name:"Taquito w/ Bacon & Egg",      protein:24, calories:420, price:"$4.99",  category:"Breakfast",diet:"Classic",      desc:"Bacon, scrambled egg, cheese in flour tortilla" },
+            { name:"Chicken Strip Sandwich (3-pc)",protein:38, calories:680, price:"$8.99", category:"Sandwich", diet:"High Protein", desc:"Three chicken strips, lettuce, tomato, gravy on bun" },
+            { name:"Patty Melt",                  protein:34, calories:700, price:"$7.99",  category:"Burger",   diet:"High Protein", desc:"Beef patty, grilled onions, creamy pepper sauce, cheese on Texas toast" },
+        ]
+    },
+    sonicdrive: {
+        name: "Sonic Drive-In", emoji: "🚗", category: "Fast Food",
+        topProtein: 44,
+        tip: "💡 The SuperSONIC Double Cheeseburger is your best protein bet. Swap tots for a side salad to keep it lean!",
+        items: [
+            { name:"SuperSONIC Double Cheeseburger", protein:44, calories:860, price:"$7.99", category:"Burger",   diet:"High Protein", desc:"Two beef patties, cheese, lettuce, tomato, onion, pickles, mayo, mustard" },
+            { name:"Grilled Chicken Sandwich",       protein:36, calories:390, price:"$6.49", category:"Sandwich", diet:"Lean",         desc:"Grilled chicken, lettuce, tomato, mayo on bun" },
+            { name:"SONIC Bacon Double Cheeseburger",protein:40, calories:780, price:"$7.49", category:"Burger",   diet:"High Protein", desc:"Two beef patties, bacon, cheese, lettuce, tomato, onion, pickles" },
+            { name:"Chicken Strip Dinner (3-pc)",    protein:38, calories:680, price:"$8.99", category:"Chicken",  diet:"High Protein", desc:"Three chicken strips, Texas toast, choice of side" },
+            { name:"Jr. Bacon Cheeseburger",         protein:22, calories:430, price:"$3.99", category:"Burger",   diet:"Best Value",   desc:"Beef patty, bacon, cheese, lettuce, tomato, mayo" },
+            { name:"Breakfast Burrito – Bacon",      protein:26, calories:530, price:"$4.99", category:"Breakfast",diet:"Classic",      desc:"Bacon, scrambled eggs, cheese, tater tots in flour tortilla" },
+            { name:"Crispy Chicken Sandwich",        protein:30, calories:540, price:"$5.99", category:"Sandwich", diet:"High Protein", desc:"Crispy chicken, lettuce, tomato, mayo on bun" },
+        ]
+    },
+};
+
+// ═══════════════════════════════════════════════════════
+//  SEARCH LOGIC
+// ═══════════════════════════════════════════════════════
+let currentFilter   = 'all';
+let currentItems    = [];
+let maxProtein      = 0;
+let currentCategory = 'all';
+
+function handleSearch(query) {
+    const dropdown = document.getElementById('searchDropdown');
+    if (!query || query.length < 1) {
+        dropdown.classList.remove('open');
+        return;
     }
-};
+
+    const q = query.toLowerCase();
+    const matches = Object.entries(restaurantData).filter(([key, r]) =>
+        r.name.toLowerCase().includes(q) ||
+        r.category.toLowerCase().includes(q)
+    );
+
+    if (matches.length === 0) {
+        dropdown.innerHTML = `<div class="no-results">No restaurants found for "${query}"<br><small>Try the 📸 Photo tab to scan any menu!</small></div>`;
+    } else {
+        dropdown.innerHTML = matches.map(([key, r]) => `
+            <div class="dropdown-item" onclick="selectRestaurant('${key}')">
+                <div class="dropdown-emoji">${r.emoji}</div>
+                <div class="dropdown-info">
+                    <div class="dropdown-name">${r.name}</div>
+                    <div class="dropdown-category">${r.category}</div>
+                </div>
+                <div class="dropdown-protein">Up to ${r.topProtein}g</div>
+            </div>
+        `).join('');
+    }
+
+    dropdown.classList.add('open');
+}
+
+function selectRestaurant(key) {
+    document.getElementById('searchDropdown').classList.remove('open');
+    document.getElementById('searchInput').value = restaurantData[key].name;
+    loadRestaurant(key);
+}
+
+// Close dropdown when tapping outside
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-wrap')) {
+        document.getElementById('searchDropdown').classList.remove('open');
+    }
+});
 
 // ═══════════════════════════════════════════════════════
-//  PHOTO MENU PARSER  (client-side AI simulation)
+//  RESTAURANT GRID
 // ═══════════════════════════════════════════════════════
+function buildGrid(category) {
+    currentCategory = category;
+    const grid = document.getElementById('restaurantGrid');
+    const entries = Object.entries(restaurantData).filter(([k, r]) =>
+        category === 'all' || r.category === category
+    );
 
-// Common menu keywords → estimated protein values
-const proteinKeywords = {
-    // Proteins
-    "steak":          { protein: 38, cal: 580, tag: "High Protein" },
-    "sirloin":        { protein: 42, cal: 620, tag: "High Protein" },
-    "ribeye":         { protein: 44, cal: 800, tag: "High Protein" },
-    "filet":          { protein: 40, cal: 520, tag: "High Protein" },
-    "brisket":        { protein: 36, cal: 540, tag: "High Protein" },
-    "chicken breast": { protein: 40, cal: 380, tag: "Lean"         },
-    "grilled chicken":{ protein: 38, cal: 360, tag: "Lean"         },
-    "fried chicken":  { protein: 32, cal: 520, tag: "High Protein" },
-    "rotisserie":     { protein: 44, cal: 420, tag: "Lean"         },
-    "chicken":        { protein: 30, cal: 420, tag: "High Protein" },
-    "salmon":         { protein: 36, cal: 440, tag: "Lean"         },
-    "tuna":           { protein: 34, cal: 380, tag: "Lean"         },
-    "shrimp":         { protein: 28, cal: 320, tag: "Lean"         },
-    "tilapia":        { protein: 32, cal: 300, tag: "Lean"         },
-    "cod":            { protein: 30, cal: 280, tag: "Lean"         },
-    "fish":           { protein: 26, cal: 380, tag: "High Protein" },
-    "turkey":         { protein: 34, cal: 380, tag: "Lean"         },
-    "pork chop":      { protein: 36, cal: 480, tag: "High Protein" },
-    "pulled pork":    { protein: 30, cal: 520, tag: "High Protein" },
-    "bacon":          { protein: 12, cal: 220, tag: "Classic"      },
-    "ham":            { protein: 22, cal: 280, tag: "Classic"      },
-    "lamb":           { protein: 34, cal: 580, tag: "High Protein" },
-    "burger":         { protein: 28, cal: 580, tag: "High Protein" },
-    "cheeseburger":   { protein: 30, cal: 620, tag: "High Protein" },
-    "double":         { protein: 40, cal: 720, tag: "High Protein" },
-    "eggs":           { protein: 14, cal: 220, tag: "Lean"         },
-    "egg white":      { protein: 18, cal: 140, tag: "Lean"         },
-    "tofu":           { protein: 16, cal: 280, tag: "Vegan"        },
-    "tempeh":         { protein: 20, cal: 320, tag: "Vegan"        },
-    "edamame":        { protein: 14, cal: 180, tag: "Vegan"        },
-    "quinoa":         { protein: 10, cal: 220, tag: "Vegan"        },
-    "lentil":         { protein: 18, cal: 300, tag: "Vegan"        },
-    "beans":          { protein: 10, cal: 200, tag: "Vegan"        },
-    "greek yogurt":   { protein: 17, cal: 180, tag: "Lean"         },
-    "cottage cheese": { protein: 14, cal: 160, tag: "Lean"         },
-    // Dish types
-    "burrito":        { protein: 28, cal: 600, tag: "High Protein" },
-    "bowl":           { protein: 32, cal: 520, tag: "High Protein" },
-    "wrap":           { protein: 26, cal: 480, tag: "High Protein" },
-    "salad":          { protein: 22, cal: 380, tag: "Lean"         },
-    "sandwich":       { protein: 24, cal: 480, tag: "Classic"      },
-    "sub":            { protein: 28, cal: 520, tag: "Classic"      },
-    "platter":        { protein: 36, cal: 680, tag: "High Protein" },
-    "combo":          { protein: 30, cal: 720, tag: "Classic"      },
-    "skillet":        { protein: 26, cal: 560, tag: "Classic"      },
-    "omelette":       { protein: 22, cal: 380, tag: "Lean"         },
-    "stir fry":       { protein: 28, cal: 480, tag: "High Protein" },
-    "kebab":          { protein: 32, cal: 480, tag: "High Protein" },
-    "gyro":           { protein: 30, cal: 520, tag: "High Protein" },
-    "shawarma":       { protein: 34, cal: 560, tag: "High Protein" },
-    "sushi":          { protein: 18, cal: 320, tag: "Lean"         },
-    "ramen":          { protein: 22, cal: 580, tag: "Classic"      },
-    "pasta":          { protein: 18, cal: 620, tag: "Classic"      },
-    "pizza":          { protein: 20, cal: 680, tag: "Classic"      },
-};
+    grid.innerHTML = entries.map(([key, r]) => `
+        <div class="rest-card" onclick="loadRestaurant('${key}')">
+            <div class="rest-emoji">${r.emoji}</div>
+            <div class="rest-info">
+                <div class="rest-name">${r.name}</div>
+                <div class="rest-meta">Up to ${r.topProtein}g protein</div>
+            </div>
+        </div>
+    `).join('');
+}
 
-// Modifiers that boost protein
-const boostWords = ["double","extra","loaded","stuffed","grande","jumbo","large","xl"];
-// Modifiers that reduce protein
-const reduceWords = ["mini","small","kids","side","half","lite"];
+function filterCategory(cat, btn) {
+    document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    buildGrid(cat);
+}
 
-function parseMenuText(text) {
-    const lines = text.split(/[\n,;|•·]+/).map(l => l.trim()).filter(l => l.length > 3);
-    const found = [];
-
-    lines.forEach(line => {
-        const lower = line.toLowerCase();
-        let bestMatch = null;
-        let bestLen = 0;
-
-        // Find the longest keyword match in this line
-        for (const [kw, data] of Object.entries(proteinKeywords)) {
-            if (lower.includes(kw) && kw.length > bestLen) {
-                bestMatch = { kw, ...data };
-                bestLen = kw.length;
-            }
-        }
-
-        if (bestMatch) {
-            let { protein, cal, tag } = bestMatch;
-
-            // Apply modifiers
-            const hasBoost  = boostWords.some(w => lower.includes(w));
-            const hasReduce = reduceWords.some(w => lower.includes(w));
-            if (hasBoost)  { protein = Math.round(protein * 1.4); cal = Math.round(cal * 1.3); }
-            if (hasReduce) { protein = Math.round(protein * 0.6); cal = Math.round(cal * 0.7); }
-
-            // Try to extract a price
-            const priceMatch = line.match(/\$[\d.]+/);
-            const price = priceMatch ? priceMatch[0] : "—";
-
-            // Clean up item name (take first 50 chars of line, strip price)
-            const name = line.replace(/\$[\d.]+/, '').replace(/^\d+\.?\s*/, '').trim().slice(0, 55);
-
-            if (name.length > 2) {
-                found.push({ name, protein, calories: cal, price, category: "Menu Item", diet: tag, desc: `Estimated from menu photo — contains ${bestMatch.kw}` });
-            }
-        }
-    });
-
-    // Deduplicate by name similarity & sort by protein
-    const unique = [];
-    const seen = new Set();
-    found.forEach(item => {
-        const key = item.name.toLowerCase().slice(0, 20);
-        if (!seen.has(key)) { seen.add(key); unique.push(item); }
-    });
-
-    return unique.sort((a, b) => b.protein - a.protein).slice(0, 10);
+function loadRestaurant(key) {
+    showLoading("🔍 Loading protein data...");
+    setTimeout(() => {
+        if (restaurantData[key]) showResults(restaurantData[key]);
+        else showError("Restaurant not found.");
+    }, 600);
 }
 
 // ═══════════════════════════════════════════════════════
-//  OCR via Canvas  (extract text from image)
+//  URL TAB
 // ═══════════════════════════════════════════════════════
+function analyzeUrl() {
+    const url = document.getElementById('menuUrl').value.trim();
+    if (!url) { showError("Please enter a restaurant menu URL."); return; }
+
+    let key = null;
+    if      (url.includes('chipotle'))       key = 'chipotle';
+    else if (url.includes('mcdonald'))       key = 'mcdonalds';
+    else if (url.includes('subway'))         key = 'subway';
+    else if (url.includes('chick-fil'))      key = 'chickfila';
+    else if (url.includes('panera'))         key = 'panera';
+    else if (url.includes('sweetgreen'))     key = 'sweetgreen';
+    else if (url.includes('tacobell'))       key = 'tacobell';
+    else if (url.includes('jackinthebox'))   key = 'jackinthebox';
+    else if (url.includes('wendys'))         key = 'wendys';
+    else if (url.includes('burgerking'))     key = 'burgerking';
+    else if (url.includes('in-n-out'))       key = 'innout';
+    else if (url.includes('raisingcanes'))   key = 'raisingcanes';
+    else if (url.includes('wingstop'))       key = 'wingstop';
+    else if (url.includes('olivegarden'))    key = 'olivegarden';
+    else if (url.includes('applebees'))      key = 'applebees';
+    else if (url.includes('texasroadhouse')) key = 'texasroadhouse';
+    else if (url.includes('outback'))        key = 'outback';
+    else if (url.includes('chilis'))         key = 'chilis';
+    else if (url.includes('pandaexpress'))   key = 'panda';
+    else if (url.includes('shakeshack'))     key = 'chickenshack';
+    else if (url.includes('fiveguys'))       key = 'fiveGuys';
+    else if (url.includes('popeyes'))        key = 'popeyes';
+    else if (url.includes('kfc'))            key = 'kfc';
+    else if (url.includes('dominos'))        key = 'dominos';
+    else if (url.includes('pizzahut'))       key = 'pizzahut';
+    else if (url.includes('starbucks'))      key = 'salsarita';
+    else if (url.includes('dennys'))         key = 'dennys';
+    else if (url.includes('ihop'))           key = 'ihop';
+    else if (url.includes('moes'))           key = 'moes';
+    else if (url.includes('noodles'))        key = 'noodles';
+    else if (url.includes('jimmyjohns'))     key = 'jimmyjohns';
+    else if (url.includes('firehousesubs'))  key = 'firehouse';
+    else if (url.includes('whataburger'))    key = 'mcdougals';
+    else if (url.includes('sonicdrivein') || url.includes('sonic.com')) key = 'sonicdrive';
+
+    showLoading("🔍 Scanning menu...");
+    setTimeout(() => {
+        if (key) showResults(restaurantData[key]);
+        else showError("Restaurant not in our database yet. Try the 🔍 Search tab or 📸 Photo tab!");
+    }, 1000);
+}
+
+// ═══════════════════════════════════════════════════════
+//  PHOTO TAB
+// ═══════════════════════════════════════════════════════
+const proteinKeywords = {
+    "steak":{ protein:38,cal:580,tag:"High Protein" }, "sirloin":{ protein:42,cal:620,tag:"High Protein" },
+    "ribeye":{ protein:44,cal:800,tag:"High Protein" }, "filet":{ protein:40,cal:520,tag:"High Protein" },
+    "chicken breast":{ protein:40,cal:380,tag:"Lean" }, "grilled chicken":{ protein:38,cal:360,tag:"Lean" },
+    "fried chicken":{ protein:32,cal:520,tag:"High Protein" }, "rotisserie":{ protein:44,cal:420,tag:"Lean" },
+    "chicken":{ protein:30,cal:420,tag:"High Protein" }, "salmon":{ protein:36,cal:440,tag:"Lean" },
+    "tuna":{ protein:34,cal:380,tag:"Lean" }, "shrimp":{ protein:28,cal:320,tag:"Lean" },
+    "fish":{ protein:26,cal:380,tag:"High Protein" }, "turkey":{ protein:34,cal:380,tag:"Lean" },
+    "pork chop":{ protein:36,cal:480,tag:"High Protein" }, "pulled pork":{ protein:30,cal:520,tag:"High Protein" },
+    "burger":{ protein:28,cal:580,tag:"High Protein" }, "double":{ protein:40,cal:720,tag:"High Protein" },
+    "eggs":{ protein:14,cal:220,tag:"Lean" }, "egg white":{ protein:18,cal:140,tag:"Lean" },
+    "tofu":{ protein:16,cal:280,tag:"Vegan" }, "beans":{ protein:10,cal:200,tag:"Vegan" },
+    "burrito":{ protein:28,cal:600,tag:"High Protein" }, "bowl":{ protein:32,cal:520,tag:"High Protein" },
+    "wrap":{ protein:26,cal:480,tag:"High Protein" }, "salad":{ protein:22,cal:380,tag:"Lean" },
+    "sandwich":{ protein:24,cal:480,tag:"Classic" }, "platter":{ protein:36,cal:680,tag:"High Protein" },
+    "omelette":{ protein:22,cal:380,tag:"Lean" }, "kebab":{ protein:32,cal:480,tag:"High Protein" },
+    "shawarma":{ protein:34,cal:560,tag:"High Protein" },
+};
+
+const boostWords  = ["double","extra","loaded","stuffed","grande","jumbo","large","xl"];
+const reduceWords = ["mini","small","kids","side","half","lite"];
+
 let uploadedImageData = null;
 
 function handlePhoto(event) {
     const file = event.target.files[0];
     if (!file) return;
-
     const reader = new FileReader();
     reader.onload = (e) => {
         uploadedImageData = e.target.result;
@@ -820,76 +1312,80 @@ function clearPhoto() {
     document.getElementById('results').style.display = 'none';
 }
 
+function parseMenuText(text) {
+    const lines = text.split(/[\n,;|•·]+/).map(l => l.trim()).filter(l => l.length > 3);
+    const found = [];
+    lines.forEach(line => {
+        const lower = line.toLowerCase();
+        let bestMatch = null, bestLen = 0;
+        for (const [kw, data] of Object.entries(proteinKeywords)) {
+            if (lower.includes(kw) && kw.length > bestLen) {
+                bestMatch = { kw, ...data };
+                bestLen = kw.length;
+            }
+        }
+        if (bestMatch) {
+            let { protein, cal, tag } = bestMatch;
+            if (boostWords.some(w => lower.includes(w)))  { protein = Math.round(protein*1.4); cal = Math.round(cal*1.3); }
+            if (reduceWords.some(w => lower.includes(w))) { protein = Math.round(protein*0.6); cal = Math.round(cal*0.7); }
+            const priceMatch = line.match(/\$[\d.]+/);
+            const price = priceMatch ? priceMatch[0] : "—";
+            const name = line.replace(/\$[\d.]+/,'').replace(/^\d+\.?\s*/,'').trim().slice(0,55);
+            if (name.length > 2) found.push({ name, protein, calories:cal, price, category:"Menu Item", diet:tag, desc:`Estimated — contains ${bestMatch.kw}` });
+        }
+    });
+    const unique = [], seen = new Set();
+    found.forEach(item => {
+        const key = item.name.toLowerCase().slice(0,20);
+        if (!seen.has(key)) { seen.add(key); unique.push(item); }
+    });
+    return unique.sort((a,b) => b.protein - a.protein).slice(0,10);
+}
+
 function analyzePhoto() {
     if (!uploadedImageData) return;
-
     showLoading("📸 Reading your menu photo...");
-
-    // Use Tesseract.js for real OCR
     const script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
     script.onload = () => {
-        document.getElementById('loadingMsg').textContent = '🔤 Extracting text from image...';
-
+        document.getElementById('loadingMsg').textContent = '🔤 Extracting text...';
         Tesseract.recognize(uploadedImageData, 'eng', {
             logger: m => {
                 if (m.status === 'recognizing text') {
-                    const pct = Math.round(m.progress * 100);
-                    document.getElementById('loadingMsg').textContent = `🔤 Reading menu... ${pct}%`;
+                    document.getElementById('loadingMsg').textContent = `🔤 Reading menu... ${Math.round(m.progress*100)}%`;
                 }
             }
         }).then(({ data: { text } }) => {
-            document.getElementById('loadingMsg').textContent = '🧠 Analyzing protein content...';
-
+            document.getElementById('loadingMsg').textContent = '🧠 Analyzing protein...';
             setTimeout(() => {
                 const items = parseMenuText(text);
-
-                if (items.length === 0) {
-                    showError("Couldn't read enough menu text from that photo. Try a clearer, well-lit photo with the menu text in focus.");
-                    return;
-                }
-
-                showResults({
-                    name: "📸 Menu Photo Analysis",
-                    tip: "💡 These estimates are based on typical recipes. Items with grilled chicken, steak, or fish are usually your best protein bets!",
-                    items,
-                    isPhoto: true
-                });
+                if (!items.length) { showError("Couldn't read enough menu text. Try a clearer, well-lit photo."); return; }
+                showResults({ name:"📸 Menu Photo Analysis", tip:"💡 Estimates based on typical recipes. Grilled chicken, steak, or fish are almost always your best bets!", items, isPhoto:true });
             }, 500);
-
-        }).catch(() => {
-            showError("Couldn't process the image. Please try a clearer photo with good lighting.");
-        });
+        }).catch(() => showError("Couldn't process the image. Try a clearer photo with good lighting."));
     };
-
     script.onerror = () => {
-        // Fallback: demo with sample parsed items
         setTimeout(() => {
             showResults({
-                name: "📸 Menu Photo Analysis",
-                tip: "💡 Tip: Items with grilled chicken, steak, or salmon are almost always your highest protein options at any restaurant!",
-                isPhoto: true,
-                items: [
-                    { name:"Grilled Chicken Plate",    protein:44, calories:420, price:"—", category:"Entrée",    diet:"Lean",         desc:"Estimated from photo — contains grilled chicken" },
-                    { name:"Steak Dinner",             protein:40, calories:610, price:"—", category:"Entrée",    diet:"High Protein", desc:"Estimated from photo — contains steak" },
-                    { name:"Salmon Fillet",            protein:36, calories:440, price:"—", category:"Entrée",    diet:"Lean",         desc:"Estimated from photo — contains salmon" },
-                    { name:"Chicken Sandwich",         protein:30, calories:480, price:"—", category:"Sandwich",  diet:"High Protein", desc:"Estimated from photo — contains chicken" },
-                    { name:"Turkey Club",              protein:28, calories:460, price:"—", category:"Sandwich",  diet:"Lean",         desc:"Estimated from photo — contains turkey" },
+                name:"📸 Menu Photo Analysis",
+                tip:"💡 Grilled chicken, steak, and salmon are almost always the highest protein options at any restaurant!",
+                isPhoto:true,
+                items:[
+                    { name:"Grilled Chicken Plate",  protein:44, calories:420, price:"—", category:"Entrée",   diet:"Lean",         desc:"Estimated — contains grilled chicken" },
+                    { name:"Steak Dinner",            protein:40, calories:610, price:"—", category:"Entrée",   diet:"High Protein", desc:"Estimated — contains steak" },
+                    { name:"Salmon Fillet",           protein:36, calories:440, price:"—", category:"Entrée",   diet:"Lean",         desc:"Estimated — contains salmon" },
+                    { name:"Chicken Sandwich",        protein:30, calories:480, price:"—", category:"Sandwich", diet:"High Protein", desc:"Estimated — contains chicken" },
+                    { name:"Turkey Club",             protein:28, calories:460, price:"—", category:"Sandwich", diet:"Lean",         desc:"Estimated — contains turkey" },
                 ]
             });
         }, 2000);
     };
-
     document.head.appendChild(script);
 }
 
 // ═══════════════════════════════════════════════════════
-//  URL ANALYSIS
+//  FILTERS & RENDERING
 // ═══════════════════════════════════════════════════════
-let currentFilter = 'all';
-let currentItems  = [];
-let maxProtein    = 0;
-
 function setFilter(type, btn) {
     currentFilter = type;
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -901,55 +1397,13 @@ function applyFilter(items) {
     switch (currentFilter) {
         case 'high':  return items.filter(i => i.protein >= 30);
         case 'lean':  return items.filter(i => i.calories / i.protein < 15);
-        case 'value': return [...items].sort((a, b) => {
-            const pA = parseFloat(a.price.replace('$','')) || 99;
-            const pB = parseFloat(b.price.replace('$','')) || 99;
-            return (pA / a.protein) - (pB / b.protein);
+        case 'value': return [...items].sort((a,b) => {
+            const pA = parseFloat(a.price.replace('$',''))||99;
+            const pB = parseFloat(b.price.replace('$',''))||99;
+            return (pA/a.protein)-(pB/b.protein);
         });
-        default: return [...items].sort((a, b) => b.protein - a.protein);
+        default: return [...items].sort((a,b) => b.protein - a.protein);
     }
-}
-
-function loadExample(key) {
-    const urls = {
-        chipotle:     'https://www.chipotle.com/menu',
-        mcdonalds:    'https://www.mcdonalds.com/us/en-us/full-menu.html',
-        subway:       'https://www.subway.com/en-US/MenuNutrition/Menu',
-        'chick-fil-a':'https://www.chick-fil-a.com/menu',
-        panera:       'https://www.panerabread.com/en-us/menu.html',
-        sweetgreen:   'https://www.sweetgreen.com/menu',
-        tacobell:     'https://www.tacobell.com/food',
-        jackinthebox: 'https://www.jackinthebox.com/food',
-    };
-    document.getElementById('menuUrl').value = urls[key] || '';
-    analyzeMenu(key);
-}
-
-function analyzeMenu(forceKey) {
-    const url = document.getElementById('menuUrl').value.trim();
-    if (!forceKey && !url) { showError("Please enter a restaurant menu URL."); return; }
-
-    let key = forceKey;
-    if (!key) {
-        if      (url.includes('chipotle'))       key = 'chipotle';
-        else if (url.includes('mcdonald'))       key = 'mcdonalds';
-        else if (url.includes('subway'))         key = 'subway';
-        else if (url.includes('chick-fil'))      key = 'chick-fil-a';
-        else if (url.includes('panera'))         key = 'panera';
-        else if (url.includes('sweetgreen'))     key = 'sweetgreen';
-        else if (url.includes('tacobell'))       key = 'tacobell';
-        else if (url.includes('jackinthebox'))   key = 'jackinthebox';
-    }
-
-    showLoading("🔍 Scanning menu for protein powerhouses...");
-
-    setTimeout(() => {
-        if (key && restaurantData[key]) {
-            showResults(restaurantData[key]);
-        } else {
-            showError("We don't have data for that restaurant yet. Try one of the quick-tap options above, or use the 📸 Menu Photo tab!");
-        }
-    }, 1200);
 }
 
 // ═══════════════════════════════════════════════════════
@@ -959,10 +1413,17 @@ function switchTab(tab, btn) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     btn.classList.add('active');
-    document.getElementById('tab-' + tab).classList.add('active');
-    document.getElementById('results').style.display = 'none';
+    document.getElementById('tab-'+tab).classList.add('active');
+    document.getElementById('results').style.display  = 'none';
     document.getElementById('errorBox').style.display = 'none';
     document.getElementById('loading').style.display  = 'none';
+}
+
+function goBack() {
+    document.getElementById('results').style.display  = 'none';
+    document.getElementById('errorBox').style.display = 'none';
+    document.getElementById('searchInput').value = '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function showLoading(msg) {
@@ -987,47 +1448,33 @@ function showResults(data) {
     currentItems = data.items;
     maxProtein   = Math.max(...data.items.map(i => i.protein));
 
-    document.getElementById('restaurantName').textContent = data.name;
-    document.getElementById('tipBox').textContent         = data.tip;
-    document.getElementById('photoDisclaimer').style.display = data.isPhoto ? 'block' : 'none';
+    document.getElementById('restaurantName').textContent        = data.name;
+    document.getElementById('tipBox').textContent                = data.tip;
+    document.getElementById('photoDisclaimer').style.display     = data.isPhoto ? 'block' : 'none';
 
-    const avgProt  = Math.round(data.items.reduce((s,i) => s+i.protein, 0) / data.items.length);
-    const topItem  = [...data.items].sort((a,b) => b.protein - a.protein)[0];
-    const leanCnt  = data.items.filter(i => i.calories / i.protein < 15).length;
+    const avgProt = Math.round(data.items.reduce((s,i) => s+i.protein, 0) / data.items.length);
+    const topItem = [...data.items].sort((a,b) => b.protein - a.protein)[0];
+    const leanCnt = data.items.filter(i => i.calories / i.protein < 15).length;
 
     document.getElementById('summaryBar').innerHTML = `
-        <div class="summary-stat">
-            <div class="value">${topItem.protein}g</div>
-            <div class="label">Top Item</div>
-        </div>
-        <div class="summary-stat">
-            <div class="value">${avgProt}g</div>
-            <div class="label">Avg Protein</div>
-        </div>
-        <div class="summary-stat">
-            <div class="value">${leanCnt}</div>
-            <div class="label">Lean Options</div>
-        </div>`;
+        <div class="summary-stat"><div class="value">${topItem.protein}g</div><div class="label">Top Item</div></div>
+        <div class="summary-stat"><div class="value">${avgProt}g</div><div class="label">Avg Protein</div></div>
+        <div class="summary-stat"><div class="value">${leanCnt}</div><div class="label">Lean Options</div></div>`;
 
     renderItems(data.items);
-
-    // Smooth scroll to results on mobile
-    setTimeout(() => {
-        document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 100);
+    setTimeout(() => document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' }), 100);
 }
 
 function renderItems(items) {
-    const filtered    = applyFilter(items);
-    const rankColors  = ['gold','silver','bronze'];
-    const rankEmojis  = ['🥇','🥈','🥉'];
+    const filtered   = applyFilter(items);
+    const rankColors = ['gold','silver','bronze'];
+    const rankEmojis = ['🥇','🥈','🥉'];
 
     document.getElementById('itemsList').innerHTML = filtered.map((item, idx) => {
         const pct       = Math.round((item.protein / maxProtein) * 100);
         const rankClass = rankColors[idx] || 'other';
         const rankLabel = rankEmojis[idx] || `#${idx+1}`;
         const pPerCal   = (item.protein / item.calories * 100).toFixed(1);
-
         return `
         <div class="protein-card">
             <div class="rank ${rankClass}">${rankLabel}</div>
@@ -1042,9 +1489,7 @@ function renderItems(items) {
             <div class="protein-badge">
                 <div class="protein-amount">${item.protein}g</div>
                 <div class="protein-label">Protein</div>
-                <div class="protein-bar-wrap">
-                    <div class="protein-bar" style="width:${pct}%"></div>
-                </div>
+                <div class="protein-bar-wrap"><div class="protein-bar" style="width:${pct}%"></div></div>
                 <div class="calories-info">${item.calories} cal</div>
                 <div class="calories-info">${pPerCal}% prot</div>
                 <div class="price-info">${item.price}</div>
@@ -1058,10 +1503,12 @@ function renderItems(items) {
     }
 }
 
-// Enter key on URL input
-document.getElementById('menuUrl').addEventListener('keydown', e => {
-    if (e.key === 'Enter') analyzeMenu();
-});
+// Enter key support
+document.getElementById('menuUrl').addEventListener('keydown', e => { if (e.key==='Enter') analyzeUrl(); });
+document.getElementById('searchInput').addEventListener('keydown', e => { if (e.key==='Escape') document.getElementById('searchDropdown').classList.remove('open'); });
+
+// Build grid on load
+buildGrid('all');
 </script>
 </body>
 </html>
